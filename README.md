@@ -1,9 +1,9 @@
-# WINWIN 프로젝트 정보
+## WINWIN 프로젝트 정보
 
 
 ---
-# SpringBoot-Project
-- ## 스프링 부트 멘토멘티 사이트
+### SpringBoot-Project
+- #### 멘토멘티 사이트
 
 
 ---
@@ -59,7 +59,7 @@
 - 이력서, 자소서 관리 및 다운로드 기능 구현
 
 ---
-### 맡은 부분 코드
+### ✍맡은 부분 코드
 
 <details>
 <summary>매퍼XMl CODE</summary> 
