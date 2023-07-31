@@ -3,19 +3,19 @@
 
 ---
 # SpringBoot-Project
-- #### 스프링 부트 멘토멘티 사이트
+- ## 스프링 부트 멘토멘티 사이트
 
 
 ---
-# 🖥️ 프로젝트 소개
+## 🖥️ 프로젝트 소개
 - 코멘토 + 커리어리를 참고하여 만든 멘토 멘티 사이트입니다.
 
 ---
-# 🕰️ 개발 기간
+## 🕰️ 개발 기간
 - 22.05.29일 - 22.07.24일
 
 ---
-# 🧑‍🤝‍🧑 맴버구성
+## 🧑‍🤝‍🧑 맴버구성
 - 팀장  : 정소이 - 로그인, 회원가입, ID찾기, PW찾기, PPT제작, 발표
 - 팀원1 : 최성진 - 모임 작성, 수정+삭제, 상세 목록, 발표용 더미데이터, DB설계 
 - 팀원2 : 김병구 - 나눔목록, 작성,수정, 진로정보
@@ -29,7 +29,7 @@
 
 
 ---
-# ⚙️ 개발 환경
+## ⚙️ 개발 환경
 - Back-End : `Java`
 - Front-End : `HTML`, `CSS`, `JavaScript`
 - `JDK 1.8.0`
@@ -58,11 +58,12 @@
 - 게시글 좋아요/추천/조회수/신고 기능 구현
 - 이력서, 자소서 관리 및 다운로드 기능 구현
 
-
-<!-- summary 아래 한칸 공백 두어야함 -->
+<details>
+<summary>매퍼XMl CODE</summary> 
 
 <mapper namespace="com.example.winwin.mapper.board.StudyMapper">
-
+    
+```
     <!--프로젝트, 모임 게시물 작성-->
    <insert id="studyInsert">
         <selectKey keyProperty="studyNumber" order="BEFORE" resultType="long">
@@ -254,10 +255,15 @@
                                         ON wu.USER_NUMBER = up.USER_NUMBER
                         left outer JOIN GRADE g ON wu.USER_GRADE = g.GRADE_NUMBER
         WHERE wu.USER_NUMBER = #{userNumber}
-    </select> 
+    </select>
+``` 
 </mapper> 
+</details>
 
+<details>
+<summary>매퍼인터페이스 CODE</summary> 
 
+```
  @Mapper
 public interface StudyMapper {
 
@@ -304,5 +310,157 @@ public interface StudyMapper {
     //   사진
     public StudyVo userProfile(Long userNumber);
 } 
+```
+
 </details>
 
+<details>
+    
+<summary> 모임 Controller CODE</summary>
+    
+```
+@Controller
+@RequestMapping("/project/*")
+@RequiredArgsConstructor
+public class projectController {
+
+    private final StudyService studyService;
+
+    /*조회*/
+    @GetMapping("/read")
+    public String projectRead(Long studyNumber, Model model) {
+        studyService.readUpdate(studyNumber);
+        StudyVo studyVo = studyService.studyFind(studyNumber);
+        List<StudyVo> otherList = studyService.findOtherList(studyVo.getCategoryNumber());
+        model.addAttribute("studyVo", studyVo);
+        model.addAttribute("otherList", otherList);
+        return "/project/projectRead";
+    }
+
+    /*글쓰기 수정 화면*/
+    @GetMapping("/modify")
+    public String update2(Long studyNumber, Model model) {
+        StudyVo studyVo = studyService.studyFind(studyNumber);
+        model.addAttribute("studyVo", studyVo);
+        return "/project/projectModify";
+    }
+
+    /*글쓰기 수정*/
+    @PostMapping("/modify")
+    public RedirectView update(StudyVo studyVo, RedirectAttributes redirectAttributes) {
+        studyService.studyModify(studyVo);
+        redirectAttributes.addAttribute("studyNumber", studyVo.getStudyNumber());
+        return new RedirectView("/meeting/home");
+    }
+
+    /*글쓰기 삭제*/
+    @GetMapping("/delete")
+    public RedirectView delete(Long studyNumber) {
+        studyService.studyLikeRemove(studyNumber);
+        studyService.studyRemove(studyNumber);
+        return new RedirectView("/meeting/home");
+    }
+
+    /*글쓰기*/
+    @GetMapping("/write")
+    public String projectWrite() {
+        return "/project/projectWrite";
+    }
+
+    /*글쓰기 보내기*/
+    @PostMapping("/write")
+    public RedirectView write(StudyDto studyDto, HttpServletRequest req) {
+
+        Long userNumber = (Long) req.getSession().getAttribute("userNumber");
+
+        studyDto.setUserNumber(userNumber);
+
+        studyService.studyRegister(studyDto);
+        System.out.println("==========123123==========");
+
+
+        return new RedirectView("/meeting/home");
+    }
+}
+```
+</details>
+
+<details>
+
+<summary>DB</summary>
+
+```
+CREATE SEQUENCE SEQ_STUDY;
+CREATE TABLE study (
+                       study_number NUMBER NOT NULL,
+                       study_title VARCHAR2(100) , -- 제목
+                       study_content VARCHAR2(1000) , --  내용
+                       study_summary_title VARCHAR2(100), -- 요약 제목
+                       study_summary_content VARCHAR2(500) , -- 요약 내용
+                       study_role VARCHAR2(100) , -- 역할(EX.백엔드/프론트엔드)
+                       study_status CHAR(1) , -- 모임 상태(EX.모집중/마감)
+                       study_openlink VARCHAR2(100) , -- 오픈카톡링크
+                       study_date DATE DEFAULT SYSDATE, -- 작성 날짜
+                       user_number NUMBER ,
+                       category_number NUMBER ,
+                       purpose_number NUMBER,
+                       time_number NUMBER,
+                       PRIMARY KEY (study_number),
+                       CONSTRAINT FK_STUDY_USER
+                           FOREIGN KEY (user_number)
+                               REFERENCES ww_user (user_number),
+                       CONSTRAINT FK_STUDY_CATEGORY
+                           FOREIGN KEY (category_number)
+                               REFERENCES study_category (category_number),
+                       CONSTRAINT FK_STUDY_PURPOSE
+                           FOREIGN KEY (purpose_number)
+                               REFERENCES study_purpose_category (purpose_number),
+                       CONSTRAINT FK_STUDY_TIME
+                           FOREIGN KEY (time_number)
+                               REFERENCES study_time_category (time_number)
+
+-- 모임 좋아요(스크랩)
+CREATE SEQUENCE SEQ_STUDY_LIKE;
+CREATE TABLE study_like (
+                            user_number NUMBER ,
+                            study_number NUMBER ,
+                            PRIMARY KEY (user_number , study_number),
+                            CONSTRAINT FK_STUDY_LIKEU
+                                FOREIGN KEY (user_number)
+                                    REFERENCES ww_user (user_number),
+                            CONSTRAINT FK_STUDY_LIKEN
+                                FOREIGN KEY (study_number)
+                                    REFERENCES study (study_number)
+)
+;
+-- 모임 카테고리
+CREATE SEQUENCE SEQ_STUDY_CATEGORY;
+CREATE TABLE study_category (
+                                category_number NUMBER NOT NULL,
+                                category_code CHAR(3) ,
+                                category_name VARCHAR2(50) ,
+                                PRIMARY KEY (category_number)
+)
+;
+
+-- 모임 목적 카테고리
+CREATE SEQUENCE SEQ_PURPOSE_CATEGORY;
+CREATE TABLE study_purpose_category (
+                                        purpose_number NUMBER,
+                                        purpose_name VARCHAR2(50), -- 창업/수익창출 + 포트폴리오/직무역량강화 + 재미
+                                        PRIMARY KEY (purpose_number)
+)
+;
+
+-- 모임 시간 카테고리
+CREATE SEQUENCE SEQ_TIME_CATEGORY;
+CREATE TABLE study_time_category (
+                                     time_number NUMBER,
+                                     time_name VARCHAR2(50), -- 4시간 미만 / 4-10시간 이상 / 10시간 이상
+                                     PRIMARY KEY (time_number)
+)
+;
+-- 모임 테이블 컬럼 추가
+ALTER TABLE STUDY ADD study_read_cnt NUMBER;
+```
+</details>
