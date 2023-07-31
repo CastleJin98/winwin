@@ -7,4 +7,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ResumeFile {
     public void  insertResumeFile(ResumeFileDto resumeFileDto);
     public ResumeFileDto selectResumeFile(Long resumeNumber);
+    public void deleteResumeFile(Long resumeNumber);
 }

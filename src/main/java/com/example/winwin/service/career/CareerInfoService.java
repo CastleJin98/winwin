@@ -3,6 +3,8 @@ package com.example.winwin.service.career;
 import com.example.winwin.dto.careerInfo.CareerInfoDto;
 import com.example.winwin.dto.mentor.CareerInfoVo;
 import com.example.winwin.dto.mentor.CategoryVo;
+import com.example.winwin.mapper.career.CareerInfoCommentMapper;
+import com.example.winwin.mapper.career.CareerInfoLikeMapper;
 import com.example.winwin.mapper.career.CareerInfoMapper;
 import com.example.winwin.vo.infinityScroll.Criteria;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,8 @@ import java.util.Optional;
 public class CareerInfoService {
 
     private final CareerInfoMapper careerInfoMapper;
+    private final CareerInfoCommentMapper careerInfoCommentMapper;
+    private final CareerInfoLikeMapper careerInfoLikeMapper;
 
 //    진로정보 글 등록하기
     public void careerInfoRegister(CareerInfoDto careerInfoDto){
@@ -115,7 +119,8 @@ public class CareerInfoService {
         if(careerInfoNumber == null){
             throw new IllegalArgumentException("진로정보 글 번호가 일치하지 않습니다.");
         }
-
+        careerInfoLikeMapper.deleteCareerInfoBoardLike(careerInfoNumber);
+        careerInfoCommentMapper.deleteCareerInfoBoardComment(careerInfoNumber);
         careerInfoMapper.careerInfoDelete(careerInfoNumber);
     }
 }

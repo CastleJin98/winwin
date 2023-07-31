@@ -42,7 +42,7 @@ public interface QnaMapper {
 
     // 댓글 수
     public int commentCnt(Long qnaNumber);
-    public int commentAuth(QnaVo qnaVo);
+    public int commentAuth(Long qnaNumber, Long userNumber);
 
     // 프로필
 //    public List<QnaProfileVo> selectUserProfile(Long userNumber);

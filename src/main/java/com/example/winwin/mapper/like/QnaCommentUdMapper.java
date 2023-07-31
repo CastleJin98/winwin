@@ -13,4 +13,7 @@ public interface QnaCommentUdMapper {
     public int udCnt(QnaCommentUdVo qnaCommentUdVo);
     //ud 삭제 (Q&A 게시글 삭제에서 사용)
     public void deleteForQna(Long qnaNumber);
+
+    //댓글 삭제시 (up&down 삭제)
+    public void deleteQnaCommentUd(Long commentNumber);
 }

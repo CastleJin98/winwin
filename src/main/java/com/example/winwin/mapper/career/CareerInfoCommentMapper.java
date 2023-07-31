@@ -28,4 +28,7 @@ public interface CareerInfoCommentMapper {
 
 //    진로정보 댓글 번호로 삭제하기
     void deleteCareerComment(Long commentNumber);
+
+//    진로정보 글 삭제 시 댓글 삭제
+    void deleteCareerInfoBoardComment(Long careerInfoNumber);
 }

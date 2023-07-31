@@ -11,6 +11,8 @@ import com.example.winwin.mapper.myPage.ActivityMapper;
 import com.example.winwin.mapper.myPage.ResumeMapper;
 import com.example.winwin.mapper.myPage.ResumePrMapper;
 import com.example.winwin.mapper.myPage.UserInfoMapper;
+import com.example.winwin.service.file.CommunityFileService;
+import com.example.winwin.service.file.ShareFileService;
 import com.example.winwin.vo.infinityScroll.Criteria;
 import com.example.winwin.vo.myPage.ActiveBoardVo;
 import com.example.winwin.vo.myPage.ActiveCommentVo;
@@ -43,6 +45,8 @@ public class MyPageService {
     private final ResumePrMapper resumePrMapper;
     private final ResumeFile resumeFile;
     private final ActivityMapper activityMapper;
+    private final ShareFileService shareFileService;
+    private final CommunityFileService communityFileService;
 
     @Value("${pfp.dir}")
     private String pfpDir;
@@ -358,6 +362,27 @@ public class MyPageService {
         return resumeMapper.selectResume(userNumber);
     }
 
+//    이력서 사진파일 삭제
+    public void removeResumeFile(Long resumeNumber){
+        if (resumeNumber == null) {
+            throw new IllegalArgumentException("이력서 정보가 없습니다.");
+        }
+
+        ResumeFileDto resumeFileDto = resumeFile.selectResumeFile(resumeNumber);
+
+        if(resumeFileDto == null){
+            return;
+        }
+
+        File target = new File(pfpDir, resumeFileDto.getFileUuid() + "_" + resumeFileDto.getFileSystemName());
+
+        if(target.exists()){
+            target.delete();
+        }
+
+        resumeFile.deleteResumeFile(resumeNumber);
+    }
+
 //    유저 폰번호 가져오기
     @Transactional(readOnly = true)
     public String getPhoneNumber(Long userNumber){
@@ -504,7 +529,7 @@ public class MyPageService {
         myPageFile.updateProfile(userPfpDto);
     }
 
-//    프로필 사진 DB 에서 삭제
+//    프로필 사진파일 삭제
     public void removeProfile(Long userNumber){
         if (userNumber == null) {
             throw new IllegalArgumentException("회원 정보가 없습니다.");
@@ -530,7 +555,79 @@ public class MyPageService {
         if(userNumber == null){
             throw new IllegalArgumentException("회원정보가 없습니다.");
         }
+        Long mentorNumber = userInfoMapper.selectMentorNumber(userNumber);
+        List<Long> resumeNumberList = userInfoMapper.selectResumeNumber(userNumber);
+        List<Long> shareNumberList = userInfoMapper.selectShareNumber(userNumber);
+        List<Long> communityNumberList = userInfoMapper.selectCommunityNumber(userNumber);
+        List<Long> qnaNumberList = userInfoMapper.selectQnaNumber(userNumber);
+        List<Long> careerInfoNumberList = userInfoMapper.selectCareerInfoNumber(userNumber);
+
+        removeProfile(userNumber);
+        resumeNumberList.forEach((resumeNumber)->removeResumeFile(resumeNumber));
+        shareNumberList.forEach((shareNumber)->shareFileService.shareFileRemove(shareNumber));
+        shareNumberList.forEach((communityNumber)->communityFileService.remove(communityNumber));
+
+        userInfoMapper.deleteTodo(userNumber);
+        userInfoMapper.deleteResumePr(userNumber);
+        userInfoMapper.deleteUserPfp(userNumber);
+        userInfoMapper.deleteDiary(userNumber);
+        userInfoMapper.deleteUserFile(userNumber);
+        userInfoMapper.deleteWing(userNumber);
+        if(resumeNumberList.size() != 0){
+            userInfoMapper.deleteResumeFile(resumeNumberList);
+        }
+        userInfoMapper.deleteResume(userNumber);
+        userInfoMapper.deleteChatting(userNumber);
+        userInfoMapper.deleteSuBridge(userNumber);
+
+        userInfoMapper.deleteStudyLike(userNumber);
+        userInfoMapper.deleteStudyComment(userNumber);
+        userInfoMapper.deleteStudy(userNumber);
+        userInfoMapper.deleteCsComment(userNumber);
+        userInfoMapper.deleteCs(userNumber);
+        userInfoMapper.deletePoliceComment(userNumber);
+        userInfoMapper.deletePoliceBoard(userNumber);
+        userInfoMapper.deleteCareerInfoComment(userNumber, careerInfoNumberList);
+        userInfoMapper.deleteCareerInfoLike(userNumber, careerInfoNumberList);
+        userInfoMapper.deleteCareerInfo(userNumber);
+        userInfoMapper.deleteMentorReview(userNumber, mentorNumber);
+        userInfoMapper.deleteMentorLike(userNumber, mentorNumber);
+        userInfoMapper.deleteUmBridge(userNumber, mentorNumber);
+        if(mentorNumber != null){
+            userInfoMapper.deleteMentorSkill(mentorNumber);
+            userInfoMapper.deleteMentorCareer(mentorNumber);
+        }
+        System.out.println("+++++111111");
+        userInfoMapper.deleteMentorProfile(userNumber);
+        System.out.println("+++++111112");
+        userInfoMapper.deleteMentor(userNumber);
+        System.out.println("+++++111114");
+        userInfoMapper.deleteWingShare(userNumber);
+        System.out.println("+++++22222");
+        if(shareNumberList.size() != 0) {
+            userInfoMapper.deleteShareFile(shareNumberList);
+        }
+        userInfoMapper.deleteShareFree(userNumber);
+
+        userInfoMapper.deleteCommunityGood(userNumber);
+        userInfoMapper.deleteCommunityCommentUd(userNumber);
+        userInfoMapper.deleteCommunityComment(userNumber);
+        if(communityNumberList.size() != 0) {
+            userInfoMapper.deleteCommunityFile(communityNumberList);
+        }
+        System.out.println("+++++33333");
+        userInfoMapper.deleteCommunity(userNumber);
+        if(qnaNumberList.size() != 0) {
+            userInfoMapper.deleteQsBridge(qnaNumberList);
+        }
+        userInfoMapper.deleteQnaGood(userNumber);
+        userInfoMapper.deleteQnaCommentUd(userNumber, qnaNumberList);
+        userInfoMapper.deleteQnaComment(userNumber);
+        userInfoMapper.deleteQna(userNumber);
+
+        System.out.println("+++++55555");
         userInfoMapper.deleteUser(userNumber);
+        System.out.println("+++++66666");
     }
 
 }

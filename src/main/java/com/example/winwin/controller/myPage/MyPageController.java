@@ -220,8 +220,15 @@ public class MyPageController {
     @PostMapping("/userDelete")
     public String userDelete(HttpServletRequest req){
         Long userNumber = (Long)req.getSession().getAttribute("userNumber");
-        myPageService.withdrawUser(userNumber);
-        myPageService.withdrawUser(userNumber);
+
+        try {
+            myPageService.withdrawUser(userNumber);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "myPage/userDelete";
+        }
+
+        req.getSession().invalidate();
 
         return "main/main";
     }
@@ -259,6 +266,8 @@ public class MyPageController {
                 e.printStackTrace();
             }
         }
+        req.getSession().setAttribute("userNickname", userDto.getUserNickname());
+        
         return new RedirectView("/myPage/userInfoModify");
     }
 

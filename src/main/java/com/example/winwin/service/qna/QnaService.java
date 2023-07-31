@@ -112,11 +112,11 @@ public class QnaService {
         return qnaMapper.commentCnt(qnaNumber);
     }
     // 댓글 수
-    public int commentAuth(QnaVo qnaVo){
-            if(qnaVo == null){
+    public int commentAuth(Long qnaNumber, Long userNumber){
+            if(qnaNumber == null || userNumber == null){
             throw new IllegalArgumentException("정보 누락");
         }
-        return qnaMapper.commentAuth(qnaVo);
+        return qnaMapper.commentAuth(qnaNumber, userNumber);
     }
 
     // 프로필 조회

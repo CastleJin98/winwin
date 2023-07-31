@@ -17,4 +17,7 @@ public interface CareerInfoLikeMapper {
 
 //    진로정보 글 좋아요 취소
     void deleteCareerInfoLike(CareerInfoLikeDto careerInfoLikeDto);
+
+//    진로정보 글 삭제 시 좋아요 삭제
+    void deleteCareerInfoBoardLike(Long careerInfoNumber);
 }

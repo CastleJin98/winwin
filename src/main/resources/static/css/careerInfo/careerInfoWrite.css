@@ -104,9 +104,17 @@ h2{
     margin: 7px 5px;
 }
 
-.write-title > input {
-    width: 600px;
-    height: 40px;
+/*.write-title > input {*/
+/*    width: 600px;*/
+/*    height: 40px;*/
+/*    border: 1px solid#ddd;*/
+/*    border-radius: 5px;*/
+/*    padding: 10px;*/
+/*}*/
+
+.write-title > input{
+    width: 650px;
+    height: 20px;
     border: 1px solid#ddd;
     border-radius: 5px;
     padding: 10px;
@@ -114,6 +122,7 @@ h2{
 
 .write-content {
     margin: 7px 0 0 5px;
+    width: 675px;
 }
 
 .write-content > textarea {
@@ -148,7 +157,7 @@ h2{
     border-radius: 5px;
     background-color: #1b5192;
     color: white;
-    padding: 10px 275px;
+    padding: 10px 310px;
     margin-top: 30px;
 }
 
@@ -286,7 +295,22 @@ h2{
 }
 
 .count{
-    margin-top: 3px;
+    margin-top: 5px;
     color: #9d9d9d;
 }
 
+#header-sun{
+    margin-top: 0;
+}
+
+a{
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+/*.write-content content-a{*/
+/*    width: 675px;*/
+/*}*/

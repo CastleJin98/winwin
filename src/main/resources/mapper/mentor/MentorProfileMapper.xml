@@ -103,20 +103,25 @@
         ON mc.MENTOR_NUMBER = m.MENTOR_NUMBER  AND m.MENTOR_NUMBER = #{mentorNumber}
     </select>
 
-    <!--멘토 프로필 경력 리스트-->
+    <!--멘토 프로필 진로정보 리스트-->
     <select id="careerList" resultType="careerInfoVo">
-        SELECT CAREERINFO_NUMBER , CAREERINFO_TITLE , DBMS_LOB.SUBSTR(CAREERINFO_CONTENT, 3000, 1) AS CAREERINFO_CONTENT  , wu.USER_NAME , J1.CAREERINFO_CNT , wu.user_belong
+        SELECT J1.CAREERINFO_NUMBER , J1.CAREERINFO_TITLE , J1.CAREERINFO_CONTENT , wu.USER_NAME , J1.CAREERINFO_CNT , wu.user_belong, NVL(L1.careerinfo_number, 0) like_cnt
         FROM (
-                 SELECT CAREERINFO_NUMBER , CAREERINFO_TITLE , DBMS_LOB.SUBSTR(CAREERINFO_CONTENT, 3000, 1) AS CAREERINFO_CONTENT  , m.USER_NUMBER , CAREERINFO_CNT
+                 SELECT CAREERINFO_NUMBER , CAREERINFO_TITLE , CAREERINFO_CONTENT, m.USER_NUMBER , CAREERINFO_CNT
                  FROM CAREERINFO c JOIN MENTOR m
-                 ON c.MENTOR_NUMBER = m.MENTOR_NUMBER
+                                        ON c.MENTOR_NUMBER = m.MENTOR_NUMBER
                  WHERE m.MENTOR_NUMBER = #{mentorNumber}
              ) J1 JOIN WW_USER wu
-        ON J1. user_number = wu.USER_NUMBER
+                       ON J1. user_number = wu.USER_NUMBER
+                  LEFT OUTER JOIN
+             (SELECT COUNT(CL.careerinfo_number) CAREERINFO_NUMBER
+              FROM CAREERINFO c JOIN CAREERINFO_LIKE cl
+                                     ON C.CAREERINFO_NUMBER = CL.CAREERINFO_NUMBER) L1
+             ON  J1.careerinfo_number = L1.CAREERINFO_NUMBER
     </select>
 
     <!--멘토 프로필-진로정보 좋아요-->
-    <select id="careerInfoLike" resultType="_int">
+    <select id="careerInfoLike" resultType="int">
         SELECT COUNT(CL.USER_NUMBER) CAREERINFO_LIKE
         FROM CAREERINFO c JOIN CAREERINFO_LIKE cl
         ON C.CAREERINFO_NUMBER = CL.CAREERINFO_NUMBER AND C.CAREERINFO_NUMBER = #{careerInfoNumber}

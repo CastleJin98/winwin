@@ -38,10 +38,10 @@ function changeStatus() {
         traditional : true,
         data: JSON.stringify({communityNumber: communityNumber, communityStatus: currentStatus}),
         success: function() {
-            alert("변경 성공");
+            alert("변경이 완료되었습니다.");
         },
         error: function() {
-            alert("변경 실패");
+            alert("변경에 실패하였습니다.");
         }
     });
 }

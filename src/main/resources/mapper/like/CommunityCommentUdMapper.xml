@@ -58,4 +58,11 @@
                                  WHERE COMMUNITY_NUMBER = #{communityNumber})
     </delete>
 
+<!--  댓글삭제시(up&down 삭제)  -->
+    <delete id="deleteCommentUd">
+        DELETE FROM COMMUNITY_COMMENT_UD
+        WHERE COMMENT_NUMBER = #{commentNumber}
+    </delete>
+
+
 </mapper>

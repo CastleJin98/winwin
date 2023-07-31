@@ -37,9 +37,6 @@
             <if test="userPosition.equals('mentee')">
                 '멘티'
             </if>
-            <if test="userPosition.equals('mentorMentee')">
-                '멘토+멘티'
-            </if>
         </trim>
     </insert>
 

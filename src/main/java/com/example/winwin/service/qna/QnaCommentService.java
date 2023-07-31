@@ -2,6 +2,8 @@ package com.example.winwin.service.qna;
 
 import com.example.winwin.dto.board.QnaCommentDto;
 import com.example.winwin.mapper.board.QnaCommentMapper;
+import com.example.winwin.mapper.like.QnaCommentUdMapper;
+import com.example.winwin.vo.board.QnaCommentUdVo;
 import com.example.winwin.vo.board.QnaCommentVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ import java.util.Optional;
 @Transactional
 public class QnaCommentService {
     private final QnaCommentMapper qnaCommentMapper;
+    private final QnaCommentUdMapper qnaCommentUdMapper;
+    private final QnaCommentUdService qnaCommentUdService;
 
     public void registerQnaComment(QnaCommentDto qnaCommentDto){
         if (qnaCommentDto == null) {
@@ -52,6 +56,8 @@ public class QnaCommentService {
         if (commentNumber == null) {
             throw new IllegalArgumentException("댓글 번호 누락");
         }
+
+
         qnaCommentMapper.delete(commentNumber);
     }
 
@@ -70,4 +76,13 @@ public class QnaCommentService {
 
         return qnaCommentMapper.findQnaCommentUdList(qnaCommentVo);
     }
+
+    public void deleteQnaCommentUd(Long commentNumber){
+        if (commentNumber == null) {
+            throw new IllegalArgumentException("댓글 번호 누락");
+        }
+        qnaCommentUdMapper.deleteQnaCommentUd(commentNumber);
+    }
+
+
 }

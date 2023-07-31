@@ -62,4 +62,12 @@
         where COMMENT_NUMBER = #{careerInfoNumber}
     </delete>
     <!--    -->
+
+    <!-- 진로정보 글 삭제 시 댓글 삭제 -->
+    <delete id="deleteCareerInfoBoardComment">
+        delete
+        from CAREERINFO_COMMENT
+        where CAREERINFO_NUMBER = #{careerInfoNumber}
+    </delete>
+    <!--    -->
 </mapper>

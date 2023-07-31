@@ -139,7 +139,7 @@ community-pfp.main-btn{
     color: rgb(66, 66, 66);
     font-weight: bold;
     padding-bottom: 1px;
-    /*border-bottom: 2px solid rgb(66, 66, 66);*/
+    border-bottom: 2px solid rgb(66, 66, 66);
 }
 
 .not-login-comment {
@@ -289,9 +289,8 @@ community-pfp.main-btn{
     margin: 5px 4px;
 }
 
-span {
-    padding: 0 5px;
-    font-size: 13px;
+.login-btn > span {
+
 }
 
 .community-time {
@@ -373,9 +372,6 @@ span {
     margin: 5px 5px 5px 0;
 }
 
-span {
-    padding: 0 5px;
-}
 
 .share-img {
     border-radius: 3px;
@@ -390,5 +386,13 @@ span {
 
 .bi-hand-thumbs-up-fill{
     display: none;
+}
+
+.big-title{
+    font-weight: bold;
+    margin-left: 6px;
+    font-size: 24px;
+    display: block;
+    margin-bottom: 15px;
 }
 

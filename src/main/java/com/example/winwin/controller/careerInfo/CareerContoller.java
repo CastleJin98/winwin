@@ -4,6 +4,7 @@ import com.example.winwin.dto.careerInfo.CareerInfoDto;
 import com.example.winwin.dto.careerInfo.CareerInfoLikeDto;
 import com.example.winwin.dto.mentor.CareerInfoVo;
 import com.example.winwin.dto.mentor.CategoryVo;
+import com.example.winwin.service.career.CareerInfoCommentService;
 import com.example.winwin.service.career.CareerInfoLikeService;
 import com.example.winwin.service.career.CareerInfoService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +27,7 @@ public class CareerContoller {
 
     private final CareerInfoService careerInfoService;
     private final CareerInfoLikeService careerInfoLikeService;
+
 
 //    보류
 //    세션으로 userNumber가져와서 페이지 진입할 때, 태그에 대한 리스트 뿌려줘
@@ -114,6 +117,14 @@ public class CareerContoller {
         model.addAttribute("career", careerInfoVo);
 
         return "careerInfo/careerInfoModify";
+    }
+
+//    진로정보 글 수정하기
+    @PostMapping("/modify")
+    public RedirectView careerModify(CareerInfoDto careerInfoDto){
+        careerInfoService.careerInfoModify(careerInfoDto);
+
+        return new RedirectView("/career/list");
     }
 
 //    진로정보 글 삭제하기

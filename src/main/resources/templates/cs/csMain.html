@@ -37,20 +37,20 @@
                     <label class="user-file">
                         <img th:if="${userPfp.pfpSystemName == null}" class="userpfp" src="/img/profile-basic.png"/>
                         <img th:unless="${userPfp.pfpSystemName == null}" class="userpfp"
-                             th:style="${'background-image: url(/profile/' + userPfp.pfpUuid + '_' + userPfp.pfpSystemName + ')'}"/>
+                             th:style="${'background-image: url(/profile/' + userPfp.pfpUuId + '_' + userPfp.pfpSystemName + ')'}"/>
                         <input type="file" id="file"/>
                     </label>
                 </div>
                 <div>
-                    <div class="community-user-name" th:text="${userPfp.userName}"></div>
+                    <div class="community-user-name" th:text="${session.userNickname}"></div>
                     <div class="community-pfp-belong" th:text="${userPfp.userPosition}"></div>
-                    <div class="community-pfp-department" th:text="'Lv.' + ${userPfp.gradeName}"></div>
+                    <div class="community-pfp-department" th:text="'Lv. ' + ${userPfp.gradeName}"></div>
                 </div>
 
             </div>
             <div>
                 <div class="community-pfp.main-btn">
-                    <a href="" th:data-userNumber="${session.userNumber}" class="pfp-main-btn">질문하기</a>
+                    <a href="" th:data-userNumber="${session.userNumber}" class="pfp-main-btn">문의하기</a>
                 </div>
             </div>
             <div class="community-pfp-sub-btn">
@@ -87,8 +87,9 @@
         <!-- 회원 프로필&질문하기 버튼 끝 -->
 
         <!-- 커뮤니티 시작 -->
-        <div class="community-list">
 
+        <div class="community-list">
+            <span class="big-title">💡문의사항💡</span>
             <input type="hidden" class="community-number" th:value="${csNumber}">
             <!-- 리스트 끝! -->
         </div>

@@ -627,9 +627,18 @@ article {
     margin: 10px;
     display: inline-block;
     border-radius: 20px;
+    height: 300px;
 }
 
 .msg {
+    overflow: hidden;
+    height: 170px;
+}
+
+.msg img{
+    display: block;
+    margin: 0 auto;
+    width: 50% !important;
 }
 
 .user-bottom {
@@ -763,4 +772,14 @@ article {
 
 .mentor {
     height: 500px;
+}
+
+.career-click {
+    text-decoration: none;
+    color : black;
+}
+
+.career-click:hover {
+    text-decoration: none;
+    color : black;
 }

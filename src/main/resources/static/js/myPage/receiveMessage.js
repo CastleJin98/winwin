@@ -1,29 +1,27 @@
-
-
 // 모달창
 $(function () {
     $(".receive-main").on('click', '.message-box', function () {
         $(".send-wrap").fadeIn();
 
-        let chattingNumber= $(this).closest('.message-box').find('.message-list').data('ctnum');
+        let chattingNumber = $(this).closest('.message-box').find('.message-list').data('ctnum');
 
         $.ajax({
-           url: "/chattings/sendModal",
+            url: "/chattings/sendModal",
             type: 'get',
-            data: {chattingNumber : chattingNumber},
-            success: function (result){
-               if(result == null){
-               alert("삭제된 쪽지입니다.");
-               }
+            data: {chattingNumber: chattingNumber},
+            success: function (result) {
+                if (result == null) {
+                    alert("삭제된 쪽지입니다.");
+                }
                 $('.send-sender').text(result.userNickname);
                 $('.send-content-chat').text(result.chattingContent);
                 $('.send-date-s').text(result.chattingDate);
 
                 console.log(result);
 
-                if(result.pfpSystemName != null){
-                   $('.send-message-profile-img').css("background-image", "url(/profile/" + result.pfpUuid + "_" + result.pfpSystemName + ")");
-                }else{
+                if (result.pfpSystemName != null) {
+                    $('.send-message-profile-img').css("background-image", "url(/profile/" + result.pfpUuid + "_" + result.pfpSystemName + ")");
+                } else {
                     $('.send-message-profile-img').css("background-image", "url(/img/profile-basic.png)");
                 }
             }
@@ -134,9 +132,9 @@ let pageNumber = 1;
 getListPage({page: pageNumber}, appendList, showError);
 
 $(window).on('scroll', function () {
-    console.log("AAA : "+$(window).scrollTop());
-    console.log("BBB : "+$(document).height());
-    console.log("CCC : "+$(window).height());
+    console.log("AAA : " + $(window).scrollTop());
+    console.log("BBB : " + $(document).height());
+    console.log("CCC : " + $(window).height());
 
     if (Math.ceil($(window).scrollTop()) == $(document).height() - $(window).height()
         || Math.floor($(window).scrollTop()) == $(document).height() - $(window).height()) {
@@ -163,25 +161,37 @@ function getListPage(pageInfo, appendList, error) {
 function appendList(map) {
     let text = '';
 
-    map.chattingVoList.forEach(chatting => {
+    if (map.chattingVoList.length == 0 && pageNumber == 1) {
+        text = `
+          <div class="community-main-box">
+            <span>앗! 받은 쪽지가 없어요.😿<br/>
+            회원들과 활발한 쪽지를 나누어 보아요.</span>
+          </div>
+        `;
 
-        text += `
+        $('.receive-main').html(text);
+
+    } else {
+
+        map.chattingVoList.forEach(chatting => {
+
+            text += `
                 <div class="message-box">
             <span class="message-list" data-ctnum="${chatting.chattingNumber}" ></span>
             <div class="message-box-top">
                 <div class="sender-profile">
                 `;
-        if(chatting.pfpSystemName == null){
-            text += `<div class="sender-img">
+            if (chatting.pfpSystemName == null) {
+                text += `<div class="sender-img">
                                   <img class="sender-img" src="/img/profile-basic.png"/>
                               </div>`;
-        }else{
-            text += `<div class="sender-img"
+            } else {
+                text += `<div class="sender-img"
                               style="${'background-image: url(/profile/' + chatting.pfpUuid + '_' + chatting.pfpSystemName + ')'}">
                               </div>`;
-        }
+            }
 
-        text +=`
+            text += `
                   <span class="sender">${chatting.userNickname}</span>
                 </div>
                 <button class="send-reply" data-unum="${chatting.userNumber}">✉ 답장</button>
@@ -193,8 +203,9 @@ function appendList(map) {
           </div>
         `;
 
-    });
-    $('.receive-main').append(text);
+        });
+        $('.receive-main').append(text);
+    }
 }
 
 function showError(a, b, c) {

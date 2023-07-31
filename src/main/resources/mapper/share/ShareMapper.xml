@@ -159,7 +159,7 @@
     <!-- 거래가 되면 마감처리 -->
     <update id="updateShareStatus">
         UPDATE SHARE_FREE
-        SET SHARE_STATUS = 0
+        SET SHARE_STATUS = 2
         WHERE SHARE_NUMBER = #{shareNumber}
     </update>
 </mapper>

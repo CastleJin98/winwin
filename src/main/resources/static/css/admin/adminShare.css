@@ -139,7 +139,6 @@
 }
 
 .small-category1 {
-    width: 110px;
     margin-right: 10px;
 }
 
@@ -152,7 +151,7 @@
 .small-category1 > a {
     text-decoration: none;
     color: black;
-    width: 110px;
+    width: 80px;
     height: 40px;
     display: flex;
     justify-content: center;

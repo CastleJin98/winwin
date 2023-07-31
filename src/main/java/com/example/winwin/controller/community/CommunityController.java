@@ -111,6 +111,8 @@ public class CommunityController {
         model.addAttribute("likeStatus", likeStatus);
         model.addAttribute("likeCnt", likeCnt);
 
+
+
         return "community/communityRead";
     }
 

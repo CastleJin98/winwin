@@ -146,20 +146,18 @@ function reportAjax(){
 /* 쪽지 모달창 */
 $(function () {
     $(".commentBtn").click(function () {
-        let userWing = $('.userWing').val();
+        let userWing = $('.sessionUserWing').val();
         let shareWing = $('.share-wing-count').data('wing');
 
-        if (loginNumber && (userWing == shareWing)) {
+        if (loginNumber && (userWing >= shareWing)) {
             $(".input-wrap").fadeIn();
-        }
-        else if(userWing != shareWing) {
-            alert("보유한 윙포인트가 부족합니다.");
+        } else if (!loginNumber){
+            alert("로그인 후 이용해주세요.");
             $(".input-wrap").addClass("none");
             $('body').css('overflow', 'auto');
             $('.form-reset')[0].reset();
-        }
-        else {
-            alert("로그인 후 이용해주세요.");
+        } else {
+            alert("보유한 윙포인트가 부족합니다.");
             $(".input-wrap").addClass("none");
             $('body').css('overflow', 'auto');
             $('.form-reset')[0].reset();

@@ -4,6 +4,7 @@ import com.example.winwin.dto.board.CommunityCommentDto;
 import com.example.winwin.service.board.CommunityCommentService;
 import com.example.winwin.vo.board.CommunityCommentVo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,13 +27,15 @@ public class CommunityCommentController {
 
     @GetMapping("/list/{communityNumber}")
     public List<CommunityCommentVo> getCommentList(HttpServletRequest req,
-            @PathVariable("communityNumber") Long communityNumber){
+                                                   @PathVariable("communityNumber") Long communityNumber){
         Long sessionUserNumber = (Long)req.getSession().getAttribute("userNumber");
         System.out.println("======================"+sessionUserNumber+"===============================");
         CommunityCommentVo communityCommentVo = new CommunityCommentVo();
         communityCommentVo.setSessionUserNumber(sessionUserNumber);
         communityCommentVo.setCommunityNumber(communityNumber);
         System.out.println("!@#$%^&*()"+communityCommentService.findCommentUdList(communityCommentVo));
+
+
         return communityCommentService.findCommentUdList(communityCommentVo);
     }
 
@@ -49,6 +52,7 @@ public class CommunityCommentController {
 
     @DeleteMapping("/{commentNumber}")
     public void commentRemove(@PathVariable("commentNumber") Long commentNumber){
+        communityCommentService.deleteCommentUd(commentNumber);
         communityCommentService.remove(commentNumber);
     }
 

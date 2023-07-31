@@ -29,15 +29,18 @@ footer{
 .first{
     width: 1050px;
     margin: 0 auto;
+    display: flex;
+    justify-content: center;
 }
 
 .Profil{
     display: flex;
+    justify-content: space-between;
 }
 
 .Profil>img{
-    margin: 10px 200px;
-    margin-right: -13px;
+    /*margin: 10px 200px;*/
+    /*margin-right: -13px;*/
     border-radius: 70%;
     overflow: hidden;
     height: 50px;
@@ -45,7 +48,11 @@ footer{
 }
 
 .Profil>.id{
-    margin: 15px 20px;
+    /*margin: 15px 20px;*/
+}
+
+.id{
+    margin-left: 10px;
 }
 
 .id>p{
@@ -70,41 +77,42 @@ footer{
 
 .question{
     display: flex;
-    margin-top: -20px;
+    /*margin-top: -20px;*/
+    margin-bottom: 10px;
 }
 
 .question>.Q{
-    margin: -7px 200px;
+    /*margin: -7px 200px;*/
     color: #1b5192;
     font-size: 16px;
     font-weight: bold;
 }
 
 .question>.title{
-    margin: -7.5px -190px;
+    /*margin: -7.5px -190px;*/
     font-size: 16px;
     font-weight: 600;
 }
 
 .content{
-    margin: 15px 200px;
+    /*margin: 15px 200px;*/
     font-size: 14px;
     white-space: pre-wrap;
-    margin-bottom: 25px;
+    /*margin-bottom: 25px;*/
     line-height: 20px;
 }
 
 /* svg 아이콘 ================================ */
 .icon{
     display: flex;
-    /*margin: 0 180px;*/
-    margin-left: 190px;
-    height: 40px;
+    justify-content: space-between;
+    margin: 20px 0px;
+
 }
 
 .read-count{
     display: flex;
-    height: 17px;
+    align-items: center;
 }
 
 .readCount-btn{
@@ -117,15 +125,13 @@ footer{
 
 .readCount-num{
     color: rgb(148, 155, 160);
-    margin: 27px 5px;
     font-size: 13px;
+    margin-left: 5px;
 }
 
 .check{
     display: flex;
-    margin-top: 1.5px;
-    margin-left: -13px;
-    height: 10px;
+    margin-left: 10px;
 }
 
 .check-btn{
@@ -138,13 +144,10 @@ footer{
 
 .checkCnt{
     color: rgb(148, 155, 160);
-    margin: -13px -2px;
     font-size: 13px;
+    margin-left: 5px;
 }
 
-.checkCnt > p {
-    margin: 38.5px -4px;
-}
 
 .hide{
     display: none;
@@ -154,39 +157,34 @@ footer{
     display: flex;
     margin-top: -10px;
     margin-left: 10px;
-    /*margin-top: -40px;*/
-    /*margin-left: 20px;*/
 }
 
 .comment-like{
     display: flex;
-    margin-top: -40px;
-    margin-left: 20px;
+    align-items: center;
 }
 
 .like-btn{
     border: none;
     background: none;
-    margin: 33px 3px;
     cursor: pointer;
 }
 
 .likeCnt p{
     font-size: 13px;
     color: rgb(148, 155, 160);
-    margin: 38px 0;
 }
 /* svg 아이콘 ================================ */
 
 .date{
-    margin-left: 500px;
-    margin-top: 27px;
+    /*margin-left: 500px;*/
+    /*margin-top: 27px;*/
     font-size: 13px;
     color: rgb(148, 155, 160);
 }
 
 .date1{
-    margin-left: 555px;
+    /*margin-left: 555px;*/
     font-size: 13px;
     color: rgb(148, 155, 160);
 }
@@ -295,26 +293,26 @@ footer{
 }
 
 .commentAi{
-    width: 700px;
+    width: 650px;
     margin: auto;
     border: 1px solid #ddd;
     background-color: #fff;
     border-radius: 3.5px;
+    padding: 40px;
 }
 
 .profil{
     display: flex;
-    margin: 25px 25px;
+    justify-content: space-between;
 }
 
 .profil>img{
     border-radius: 70%;
 }
 
-.profil>.Commento{
-    margin: 10px 10px;
+.Commento{
     width: 100px;
-    /*font-weight: bold;*/
+    margin-left: 10px;
 }
 
 .c-Application{
@@ -332,10 +330,9 @@ footer{
 }
 
 .Aicontent{
-    /*margin: 40px 25px;*/
     font-size: 15px;
-    line-height: 20px;
-    margin-left: 30px;
+    line-height: 1.8;
+    margin: 20px 0px;
 }
 
 .answer-box{
@@ -343,7 +340,7 @@ footer{
 }
 
 .answer{
-    width: 650px;
+    /*width: 650px;*/
     margin: auto;
     color: #1b5192;
     border-radius: 3.5px;
@@ -352,10 +349,12 @@ footer{
     display: flex;
     font-size: 14px;
     align-items: center;
+    justify-content: space-between;
+    padding: 0px 15px;
 }
 
 .no-reply{
-    width: 650px;
+    width: 700px;
     margin: auto;
     color: #1b5192;
     border-radius: 3.5px;
@@ -373,13 +372,11 @@ footer{
 
 .icon2{
     display: flex;
-    margin: 25px 0;
+    justify-content: space-between;
 }
 
 .comment-goodorbad{
-    margin-left: 325px;
     display: flex;
-    margin-bottom: -9px;
 }
 
 .goodorbad{
@@ -391,6 +388,8 @@ footer{
 
 .answer-box-comment{
     width: 200px;
+    display: flex;
+
 }
 
 .goodorbad>.good-btn{
@@ -426,7 +425,7 @@ footer{
 }
 
 .parent{
-    height: 40px;
+    margin: 20px 0px;
 }
 
 .newComment{
@@ -460,14 +459,10 @@ footer{
     background-color: #fff;
 }
 
-.c-Applicatio{
-    margin-top: 18px;
-}
-
 .img-box{
     flex-direction: column-reverse;
-    margin-bottom: 24px;
-    border-radius: 3.5px;
+    /*margin-bottom: 24px;*/
+    border-radius: 50%;
     width: 50px;
     height: 50px;
 }
@@ -480,8 +475,8 @@ footer{
 .dropdown{
     position: relative;
     display: inline-block;
-    margin-left: 496px;
-    margin-top: -2px;
+    /*margin-left: 496px;*/
+    /*margin-top: -2px;*/
 }
 
 .dropbtn{
@@ -493,7 +488,7 @@ footer{
     text-align: left;
     cursor : pointer;
     font-size : 12px;
-    margin-left: -50px;
+    /*margin-left: -50px;*/
 }
 .dropdown-content{
     display : none;
@@ -527,8 +522,8 @@ footer{
 .dropdown2{
     position : relative;
     display : inline-block;
-    margin-left: 450px;
-    margin-top: -10px;
+    /*margin-left: 450px;*/
+    /*margin-top: -10px;*/
 }
 
 .dropbtn2{
@@ -536,7 +531,7 @@ footer{
     background: none;
     font-weight: 400;
     color : rgb(37, 37, 37);
-    padding : 5px;
+    /*padding : 5px;*/
     text-align: left;
     cursor : pointer;
     font-size : 12px;
@@ -779,3 +774,31 @@ pfp-text{
     font-weight: 600;
     margin-bottom: 3px;
 }
+
+.qna-wrap{
+    width: 700px;
+}
+
+.profile-content-box{
+    display: flex;
+    align-items: center;
+}
+
+.content-wrap{
+    margin-top: 20px;
+}
+
+.icon-wrap{
+    display: flex;
+}
+
+.profile-wrap{
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+
+

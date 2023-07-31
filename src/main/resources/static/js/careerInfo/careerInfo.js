@@ -398,7 +398,7 @@ $('.write-btn').on('click', function (e) {
         alert("로그인이 필요합니다.");
         $('.login-move').trigger('click');
     }else if(mentorNumber == -1){
-        alert('멘토가 아닙니다.');
+        alert('글 작성 권한이 없습니다.(멘토가 아닙니다.)');
     }
 });
 

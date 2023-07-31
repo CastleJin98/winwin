@@ -5,31 +5,42 @@ let page = 1;
 getListPage({page: page}, appendList, showError);
 
 $(window).on('scroll', function () {
-  if (Math.ceil($(window).scrollTop()) == $(document).height() - $(window).height()) {
-    ++page;
-    getListPage({page: page}, appendList, showError)
-  }
+    if (Math.ceil($(window).scrollTop()) == $(document).height() - $(window).height()) {
+        ++page;
+        getListPage({page: page}, appendList, showError)
+    }
 });
 
 function getListPage(pageInfo, appendList, error) {
-  $.ajax({
-    url: `/myPages/myQnaComment/${pageInfo.page}`,
-    type: 'get',
-    dataType: 'json',
-    success: function (result) {
-      if (appendList) {
-        appendList(result);
-      }
-    },
-    error: error
-  });
+    $.ajax({
+        url: `/myPages/myQnaComment/${pageInfo.page}`,
+        type: 'get',
+        dataType: 'json',
+        success: function (result) {
+            if (appendList) {
+                appendList(result);
+            }
+        },
+        error: error
+    });
 }
 
 function appendList(map) {
-  let text = '';
+    let text = '';
 
-  map.activeCommentVoList.forEach(comment => {
-    text += `
+    if (map.activeCommentVoList.length == 0 && page == 1) {
+        text = `
+          <div class="community-main-box-size">
+            <span>앗! 활동 내역이 없어요.😿<br/>
+            활발한 활동을 통해 회원들과 소통을 나누어 보아요.</span>
+          </div>
+        `;
+
+        $('.activity-content').html(text);
+    } else {
+
+        map.activeCommentVoList.forEach(comment => {
+            text += `
           <a class="commu-move" href="/qna/read?qnaNumber=${comment.boardNumber}">
             <div class="reply-box">
               <div class="commu-reply-top">
@@ -57,10 +68,11 @@ function appendList(map) {
             </div>
           </a>
         `;
-  });
-  $('.activity-content').append(text);
+        });
+        $('.activity-content').append(text);
+    }
 }
 
 function showError(a, b, c) {
-  console.log(c);
+    console.log(c);
 }

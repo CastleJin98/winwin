@@ -43,7 +43,6 @@ public class QnaController {
 
         QnaVo qnaVo = qnaService.findQna(qnaNumber);
 
-
         QnaCommentVo qnaCommentVo = new QnaCommentVo();
         qnaCommentVo.setSessionUserNumber(userNumber);
         qnaCommentVo.setQnaNumber(qnaNumber);
@@ -62,10 +61,10 @@ public class QnaController {
         Long likeStatus = qnaGoodService.findQnaLike(qnaGoodDto);
         int qnaLikeCnt = qnaGoodService.likeQnaCnt(qnaGoodDto);
         qnaVo.setQnaNumber(qnaNumber);
-        qnaVo.setUserNumber(userNumber);
+
         int commentAuth = 0;
         if(userNumber != null){
-            commentAuth = qnaService.commentAuth(qnaVo);
+            commentAuth = qnaService.commentAuth(qnaVo.getQnaNumber(), userNumber);
         }
         model.addAttribute("commentAuth", commentAuth);
         model.addAttribute("qna", qnaVo);

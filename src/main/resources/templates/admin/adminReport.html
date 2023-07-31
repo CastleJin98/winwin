@@ -116,7 +116,12 @@
                         <td class="user-name" align="center" th:text="${admin.userName}"></td>
                         <td class="user-id" align="center" th:text="${admin.userId}"></td>
 <!--                        <td class="user-board" align="center" th:text="${admin.bigName}"></td>-->
-                        <td class="board-title" align="center" th:text="${admin.title}"></td>
+                        <td class="board-title" align="center">
+                            <a th:if="${admin.bigCode == '400'}" th:href="@{/community/read(communityNumber = ${admin.postNumber})}" th:text="${admin.title}"></a>
+                            <a th:if="${admin.bigCode == '300'}" th:href="@{/qna/read(qnaNumber = ${admin.postNumber})}" th:text="${admin.title}"></a>
+                            <a th:if="${admin.bigCode == '500'}" th:href="@{/project/read(studyNumber = ${admin.postNumber})}" th:text="${admin.title}"></a>
+                            <a th:if="${admin.bigCode == '600'}" th:href="@{/share/read(shareNumber = ${admin.postNumber})}" th:text="${admin.title}"></a>
+                        </td>
                         <td class="user-report-date" align="center" th:text="${admin.policeDate}"></td>
                         <td class="report-reason" align="center" th:text="${admin.categoryName}"></td>
                         <td class="board-public-secret" align="center">

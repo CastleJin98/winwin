@@ -78,4 +78,5 @@ public class CareerInfoCommentService {
 
         careerInfoCommentMapper.deleteCareerComment(commentNumber);
     }
+
 }

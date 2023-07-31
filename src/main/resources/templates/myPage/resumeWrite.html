@@ -40,11 +40,11 @@
               <div class="img-box preview"></div>
             </div>
             <h3 class="h3">제목</h3>
-            <input name="resumeTitle" type="text" class="last-input" placeholder="제목을 입력하세요." />
+            <input name="resumeTitle" type="text" class="last-input" placeholder="제목을 입력하세요." required/>
             <h3 class="h3">인적사항</h3>
-            <input name="resumeName" type="text" placeholder="이름을 입력하세요." />
-            <input name="resumeAddress" type="text" placeholder="주소를 입력하세요." />
-            <input name="resumeEmail" type="text" placeholder="이메일을 입력하세요." />
+            <input name="resumeName" type="text" placeholder="이름을 입력하세요." required/>
+            <input name="resumeAddress" type="text" placeholder="주소를 입력하세요." required/>
+            <input name="resumeEmail" type="text" placeholder="이메일을 입력하세요." required/>
             <input name="resumeWebsite" type="text" class="last-input" placeholder="포트폴리오 홈페이지 주소를 입력하세요. (선택)" />
             <h3 class="h3">학력사항
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-circle bi1p" viewBox="0 0 16 16">
@@ -59,15 +59,15 @@
             <div class="bi1">
               <div class="bi1-box">
                 <div class="school-input-box">
-                  <input name="resumeSchool1" type="text" class="school" placeholder="학교를 입력하세요." />
+                  <input name="resumeSchool1" type="text" class="school" placeholder="학교를 입력하세요." required/>
                   <select name="graduation1" id="graduation">
                     <option value="1">졸업</option>
                     <option value="2">재학</option>
                   </select>
                 </div>
                 <div class="school-date-box">
-                  <input name="schoolStartDate1" type="date" class="school-date" />
-                  <input name="schoolEndDate1" type="date" class="school-date last-input" />
+                  <input name="schoolStartDate1" type="date" class="school-date" required/>
+                  <input name="schoolEndDate1" type="date" class="school-date last-input" required/>
                 </div>
               </div>
             </div>

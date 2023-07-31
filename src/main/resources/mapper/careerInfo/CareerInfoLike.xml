@@ -30,4 +30,12 @@
         WHERE USER_NUMBER = #{userNumber} AND CAREERINFO_NUMBER = #{careerInfoNumber}
     </delete>
 
+    <!-- 진로정보 글 삭제 시 좋아요 삭제 -->
+    <delete id="deleteCareerInfoBoardLike">
+        delete
+        from CAREERINFO_LIKE
+        where CAREERINFO_NUMBER = #{careerInfoNumber}
+    </delete>
+    <!--    -->
+
 </mapper>

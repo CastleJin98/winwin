@@ -86,15 +86,13 @@
            <span class="wing-point" th:text="${session.userWing}"></span>
            <img th:src="@{/img/wing-icon.png}" alt="" class="wing-icon"/>
            <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-           <th:block th:if="${session.userPosition == '멘티'}">
             <a th:href="@{/myPage/myMentor}" class="h-user-name" ><span th:text="${session.userNickname}"></span>님</a>
-           </th:block>
-           <th:block th:if="${session.userPosition == '멘토'}">
-             <a th:href="@{/myPage/myMentee}" class="h-user-name" ><span th:text="${session.userNickname}"></span>님</a>
-           </th:block>
-           <th:block th:if="${session.userPosition == '멘토+멘티'}">
-             <a th:href="@{/myPage/myMentor}" class="h-user-name" ><span th:text="${session.userNickname}"></span>님</a>
-           </th:block>
+<!--           <th:block th:if="${session.userPosition == '멘토'}">-->
+<!--             <a th:href="@{/myPage/myMentee}" class="h-user-name" ><span th:text="${session.userNickname}"></span>님</a>-->
+<!--           </th:block>-->
+<!--           <th:block th:if="${session.userPosition == '멘토+멘티'}">-->
+<!--             <a th:href="@{/myPage/myMentor}" class="h-user-name" ><span th:text="${session.userNickname}"></span>님</a>-->
+<!--           </th:block>-->
 <!--            <a href=""><img th:src="@{/img/profile-basic.png}" alt="" class="profile-img" /></a>-->
            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
           <a class="h-logout"  th:href="@{/user/logout}">로그아웃</a>

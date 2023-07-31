@@ -33,14 +33,14 @@
           <div class="mypage-main">
             <div class="title"><h2>진로 정보</h2></div>
             <div class="category">
-              <a th:href="@{/myPage/careerInfo}">
+              <div class="category-contain">
+                <h4 id="point-page">관심 글</h4>
+              </div>
+              <a th:if="${sideBar.userPosition != '멘티'}" th:href="@{/myPage/careerInfo}">
                 <div class="category-contain">
                   <h4>내 글</h4>
                 </div>
               </a>
-              <div class="category-contain">
-                <h4 id="point-page">관심 글</h4>
-              </div>
             </div>
             <!-- 내용 메인페이지 -->
             <div class="career-info-content">

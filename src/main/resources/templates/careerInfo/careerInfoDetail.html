@@ -7,6 +7,7 @@
     <link rel="stylesheet" th:href="@{/css/user/loginModal.css}"/>
     <link rel="stylesheet" th:href="@{/css/fragment/header.css}"/>
     <link rel="stylesheet" th:href="@{/css/fragment/footer.css}"/>
+    <link rel="stylesheet" th:href="@{/css/police/reportModal.css}" />
     <link rel="stylesheet" th:href="@{/css/careerInfo/careerInfoDetail.css}"/>
     <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css" rel="stylesheet"/>
     <style>
@@ -25,6 +26,67 @@
 <body>
 <header class="header" th:replace="fragment/header :: header"></header>
 <div class="container">
+    <!-- 신고하기 모달창 -->
+    <div class="reportModal">
+        <div class="reportModal-content">
+            <h2>신고하기</h2>
+            <!-- 신고 카테고리 -->
+            <form action="#">
+                <div class="report-category">
+                    <div class="report-list">
+                        <input type="checkbox" id="report-language" name="report-checkbox" value="1"/>
+                        <label for="report-language" class="label1 check">
+                        </label>
+                        <span>욕설/비방글</span>
+                    </div>
+
+                    <div class="report-list">
+                        <input type="checkbox" id="report-copyright" name="report-checkbox" value="2"/>
+                        <label for="report-copyright" class="label2 check"></label>
+                        <span>저작권 침해</span>
+                    </div>
+
+                    <div class="report-list">
+                        <input type="checkbox" id="report-adult" name="report-checkbox" value="3"/>
+                        <label for="report-adult" class="label3 check"></label>
+                        <span>음란성</span>
+                    </div>
+
+                    <div class="report-list">
+                        <input type="checkbox" id="false-maketing" name="report-checkbox" value="4"/>
+                        <label for="false-maketing" class="label4 check"></label>
+                        <span>불법 광고</span>
+                    </div>
+
+                    <div class="report-list">
+                        <input type="checkbox" id="report-info-honor" name="report-checkbox" value="5"/>
+                        <label for="report-info-honor" class="label5 check"></label>
+                        <span>개인정보 침해 및 명예훼손</span>
+                    </div>
+
+                    <div class="report-list">
+                        <input type="checkbox" id="reprot-disgust" name="report-checkbox" value="6"/>
+                        <label for="reprot-disgust" class="label6 check"></label>
+                        <span>폭력/잔인/혐오</span>
+                    </div>
+
+                    <div class="report-list">
+                        <input type="checkbox" id="report-castle" name="report-checkbox" value="7"/>
+                        <label for="report-castle" class="label7 check"></label>
+                        <span>도배성</span>
+                    </div>
+                </div>
+            </form>
+            <!--  -->
+
+            <!-- 신고하기 버튼 -->
+            <div class="report-button">
+                <button type="submit" class="report-btn">신고하기</button>
+            </div>
+            <!--  -->
+        </div>
+    </div>
+    <!--    -->
     <section class="sec1">
         <!-- 멘토 인증태그 가져오기 -->
         <div class="tag-wrap">
@@ -58,11 +120,17 @@
                                                                                                      r="1.5"></circle><circle
                                         data-v-bd9f2bcc="" cx="12" cy="18.5" r="1.5"></circle></svg></span>
                 </button>
-                <div class="dropdown-content">
-                    <a class="police-btn">신고</a>
-                    <a th:onclick="'fn_modify('+ ${career.careerInfoNumber} +');'">수정</a>
-                    <a>삭제</a>
-                    <input type="hidden" th:value="${career.careerInfoNumber}">
+                <div class="dropdown-content" th:if="${session.userNumber == career.userNumber} and ${session.mentorNumber == career.mentorNumber}">
+<!--                    <a class="detail-police-btn">신고</a>-->
+                    <a class="detail-modify-btn" >수정</a>
+                    <a class="detail-remove-btn">삭제</a>
+                    <input class="careerinfo-num" type="hidden" th:value="${career.careerInfoNumber}">
+                </div>
+                <div class="dropdown-content" th:unless="${session.userNumber == career.userNumber} and ${session.mentorNumber == career.mentorNumber}">
+                    <a class="detail-police-btn">신고</a>
+<!--                    <a class="detail-modify-btn" >수정</a>-->
+<!--                    <a class="detail-remove-btn">삭제</a>-->
+                    <input class="careerinfo-num" type="hidden" th:value="${career.careerInfoNumber}">
                 </div>
             </div>
         </div>
@@ -139,9 +207,7 @@
                 <div class="qna-text-box">
                     <span class="qna-sub-text">간편하게 내용을 확인하고, <br/>조금 더 궁금한 사항을 댓글로 문의해보세요:)</span>
                 </div>
-
             </div>
-            <!--            <div class="qna-btn"><a href="#">댓글 남기러 가기</a></div>-->
         </div>
     </section>
     <div class="sec5">
@@ -164,6 +230,7 @@
         crossorigin="anonymous"></script>
 <script th:src="@{/js/user/loginModal.js}"></script>
 <script th:src="@{/js/fragment/header.js}"></script>
+<script th:src="@{/js/police/reportModal.js}"></script>
 <script type="module" th:src="@{/js/careerInfo/careerInfoDetail.js}"></script>
 <script th:inline="javascript">
     let loginNumber = [[${session.userNumber}]];

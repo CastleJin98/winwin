@@ -16,4 +16,7 @@ public interface CommunityCommentUdMapper {
     //ud 삭제 (커뮤니티 게시글 삭제에서 사용)
     public void deleteForCommunity(Long communityNumber);
 
+    //댓글 삭제시 (up&down 삭제)
+    public void deleteCommentUd(Long commentNumber);
+
 }

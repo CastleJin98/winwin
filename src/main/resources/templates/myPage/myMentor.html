@@ -31,7 +31,7 @@
     <div th:replace="chatting/inputModal :: inputModal(nickname='', chattingTo='')"></div>
     <!--쪽지 모달창 끝-->
     <main>
-      <input type="hidden" th:value="${user}">
+<!--      <input type="hidden" th:value="${user}">-->
       <div class="wrap">
         <div class="container">
           <div th:replace="fragment/myPageSide :: myPageSide"></div>
@@ -39,7 +39,7 @@
           <div class="mypage-main">
             <div class="title"><h2>내 멘토 : 멘티</h2></div>
             <div class="category">
-              <th:block th:if="${user == '멘티'}">
+              <th:block th:if="${session.mentorNumber == -1}">
               <div class="category-contain point-mentor">
                 <h4 id="point-page1">내 멘토</h4>
               </div>
@@ -47,7 +47,7 @@
                   <h4>관심 멘토</h4>
                 </div>
               </th:block>
-              <th:block th:if="${user == '멘토+멘티'}">
+              <th:block th:if="${session.mentorNumber > -1}">
                 <div class="category-contain point-mentor">
                   <h4 id="point-page2">내 멘토</h4>
                 </div>
@@ -58,19 +58,23 @@
                   <h4>관심 멘토</h4>
                 </div>
               </th:block>
-
-              <th:block th:if="${user == '멘토'}">
-                <div class="category-contain point-mentee">
-                  <h4 id="point-page3">내 멘티</h4>
-                </div>
-<!--                <div class="category-contain like-mentor">-->
-<!--                  <h4>관심 멘토</h4>-->
-<!--                </div>-->
-              </th:block>
-
             </div>
             <div class="my-mentor-content">
+              <!-- 내 멘토가 없을 경우 -->
+              <th:block th:if="${mentor == null or #lists.isEmpty(mentor)}">
+                <div class="community-main-box">
+                    <span>앗! 아직 내 멘토가 없습니다.😿 <br/>
+                    멘토를 등록하고 자유롭게 이야기를 나눠보세요.</span>
+                  <div class="page-move-btn">
+                    <button class="mapage-careerinfo-path" onclick="location.href='/mentor/list'">멘토 : 멘티
+                      입장하기
+                    </button>
+                  </div>
+                </div>
+              </th:block>
+              <!--           -->
               <!-- 멘토 프로필 -->
+              <th:block th:unless="${mentor == null or #lists.isEmpty(mentor)}">
               <article class="item" th:each="mentor :${mentor}">
                 <section class="mento-profile">
                   <div class="item__box">
@@ -191,6 +195,7 @@
                   </div>
                 </div>
               </article>
+              </th:block>
               <!-- 멘토 프로필 끝 -->
               <!-- 내 멘토 없을 때 띄울 창 -->
 <!--              <div class="not-found">-->

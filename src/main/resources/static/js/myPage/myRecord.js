@@ -75,6 +75,18 @@ $('.btn-codeview').remove();
 //다이어리 리스트 띄우기
 function diaryList(result) {
      let text = '';
+
+    if (result.length == 0 && page == 1) {
+        text = `
+          <div class="community-main-box-size">
+            <span>앗! 등록된 내 기록이 없어요.😿<br/>
+            기록을 통해 기억하고 싶은 정보를 저장해 보아요.</span>
+          </div>
+        `;
+
+        $('.diary-list').html(text);
+    }else{
+
     result.forEach(r => {
        text += `
                 <div class="list-btn">
@@ -110,6 +122,7 @@ function diaryList(result) {
             `;
             });
             $('.diary-list').append(text);
+    }
 }
 
 //다이어리 등록하기
@@ -128,6 +141,7 @@ $('.submit').on('click' , function (){
        },
        success : function () {
            console.log("성공");
+           document.location.reload();
        },
        error : function () {
            console.log("실패");

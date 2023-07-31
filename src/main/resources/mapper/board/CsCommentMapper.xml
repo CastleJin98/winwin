@@ -12,7 +12,7 @@
     </insert>
 
     <select id="selectList" resultType="csReplyVo">
-        SELECT COMMENT_NUMBER, COMMENT_CONTENT, COMMENT_DATE, U.USER_NUMBER, CS_NUMBER, USER_ID
+        SELECT COMMENT_NUMBER, COMMENT_CONTENT, COMMENT_DATE, U.USER_NUMBER, CS_NUMBER, USER_ID, USER_STATUS
         FROM WW_USER U
                  JOIN CS_COMMENT C
                       ON CS_NUMBER = #{csNumber} AND U.USER_NUMBER = C.USER_NUMBER

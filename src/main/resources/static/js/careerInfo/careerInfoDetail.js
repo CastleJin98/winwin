@@ -80,7 +80,9 @@ function showComment(result) {
                 <div class="reply-content1">
                     <div class="profile-wrap">
                         <div class="profile-icon-wrap">
-                            <img class="profile-icon-img" src="../../static/img/careerpathdetail.png">
+                        ${c.pfpSystemName == null ?
+                         '<img class="profile-icon-img" src="/img/profile-basic.png"/>' :
+                         '<img class="profile-icon-img" src=/profile/' + c.pfpUuid + '_' + c.pfpSystemName +'>'}
                         </div>
                         <div class="profile-text-wrap">
                             <div><span class="profile-text-id">${c.userNickname}</span></div>
@@ -130,9 +132,13 @@ $('.submit-btn').on('click', function () {
         return;
     }
 
-    let content = $('#content').val();
+    let content = $('#content').val().trim();
     let boardNumber = $('.careerInfo-num').val();
-    comment.register({commentContent: content, careerInfoNumber: boardNumber});
+
+    if (content != null && content != ''){
+    comment.register({commentContent: content, careerInfoNumber: boardNumber}, function (){
+        comment.getList(obj, showComment, showError)}, showError);
+    }
 
     $('#content').val('');
 
@@ -142,7 +148,7 @@ $('.submit-btn').on('click', function () {
         page : page
     }
 
-    comment.getList(obj, showComment, showError);
+    // comment.getList(obj, showComment, showError);
 });
 
 // 진로정보 댓글 삭제하기
@@ -166,18 +172,22 @@ $('.reply').on('click', '.remove-btn', function () {
 
 // 진로정보 댓글 수정하기
 $('.reply').on('click', '.modify-btn', function () {
+
     let content = $(this).closest('.reply-cardbox').find('.reply-text');
     let num = $(this).closest('.reply').find('.reply-cardbox').data('num');
     let content1 = $(this).closest('.reply-cardbox').find('.reply-text').text();
+
     console.log(num);
     console.log(content);
+
     content.replaceWith(`
     <div class='modify-box'>
     <textarea class='modify-content'>${content1}</textarea>
     <button type='button' class='modify-content-btn'>수정 완료</button>
     </div>
     `);
-    // $('comment-btn__box').addClass('.none');
+
+    $('.btn-sub-wrap').addClass('none');
 });
 
 // 진로정보 댓글 수정 완료처리
@@ -232,10 +242,64 @@ function careerInfoLike(careerInfoNumber){
     });
 }
 
-// 수정 페이지 이동
-function fn_modify(careerInfoNumber){
-    if(confirm("정말 수정하시겠습니까?")) {
-        location.href = "/career/modify?careerInfoNumber="+careerInfoNumber;
-    }
-}
 
+// 수정 페이지 이동
+$('.dropdown-content').on('click', '.detail-modify-btn', function (){
+    let careerInfoNumber = $('.careerinfo-num').val();
+    alert("정말 수정하시겠습니까?");
+    location.href = "/career/modify?careerInfoNumber=" + careerInfoNumber;
+})
+
+// 진로정보 글 삭제하기
+$('.dropdown-content').on('click', '.detail-remove-btn', function (){
+    let careerInfoNumber = $('.careerinfo-num').val();
+    alert("정말 삭제하시겠습니까?");
+    location.href = "/career/remove?careerInfoNumber=" + careerInfoNumber;
+})
+
+// 진로정보 신고하기 페이지 이동
+let reportModal = document.querySelector(".reportModal");
+let reportBtn = document.querySelector(".detail-police-btn");
+
+reportBtn.addEventListener("click", function (){
+    reportModal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+});
+
+reportModal.addEventListener("click", function (e){
+    if ($(e.target).hasClass("reportModal")){
+        reportModal.style.display = "none";
+        document.body.style.overflow = "unset";
+    }
+});
+
+// 진로정보 신고하기 버튼 클릭 시 컨펌 및 신고처리
+let $reportButton = $('.report-btn');
+$reportButton.on("click", function () {
+    if (loginNumber) {
+        console.log($('.report-list input:checked').val());
+        let result = confirm("정말 신고하시겠습니까?");
+        if (result) {
+            reportAjax();
+        }
+    } else {
+        alert("로그인 후 이용해주세요.");
+    }
+});
+
+// 진로정보 글 신고하기 처리
+function reportAjax(){
+    let careerInfoNumber = $('.careerinfo-num').val();
+    let policeCategory = $('.report-list input:checked').val();
+
+    $.ajax({
+       url : '/police/careerInfo',
+       type : 'post',
+       data : JSON.stringify({boardNumber : careerInfoNumber, policeCategory : policeCategory}),
+       contentType : 'applicatrion/json; charset=utf-8',
+       success : function (){
+           alert("정상적으로 신고처리 되었습니다.");
+           location.href = "/career/list";
+       }
+    });
+}

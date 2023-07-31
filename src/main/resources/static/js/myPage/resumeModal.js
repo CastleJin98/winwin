@@ -68,6 +68,47 @@ $('.modal-wrap').on('click', function (e) {
 });
 
 function fillResume(resumeVo){
+  //초기화 하고
+  $('.rm-name').text('');
+  $('.rm-phone').text('');
+  $('.rm-address').text('');
+  $('.rm-email').text('');
+  $('.rm-website').text('');
+  $('.rm-school1').text('');
+  $('.rm-school2').text('');
+  $('.rm-school-start1').text('');
+  $('.rm-school-start2').text('');
+  $('.rm-school-end1').text('');
+  $('.rm-school-end2').text('');
+  $('.rm-career1').text('');
+  $('.rm-career2').text('');
+  $('.rm-career3').text('');
+  $('.rm-career-start1').text('');
+  $('.rm-career-start2').text('');
+  $('.rm-career-start3').text('');
+  $('.rm-career-end1').text('');
+  $('.rm-career-end2').text('');
+  $('.rm-career-end3').text('');
+  $('.certificate-name').find('.certi-title').text('자격명칭');
+  $('.certificate-grade').find('.certi-title').text('등급');
+  $('.certificate-inst').find('.certi-title').text('증빙기관');
+  $('.rm-certi-name1').text('');
+  $('.rm-certi-name2').text('');
+  $('.rm-certi-name3').text('');
+  $('.rm-certi-name4').text('');
+  $('.rm-certi-name5').text('');
+  $('.rm-certi-grade1').text('');
+  $('.rm-certi-grade2').text('');
+  $('.rm-certi-grade3').text('');
+  $('.rm-certi-grade4').text('');
+  $('.rm-certi-grade5').text('');
+  $('.rm-certi-noto1').text('');
+  $('.rm-certi-noto2').text('');
+  $('.rm-certi-noto3').text('');
+  $('.rm-certi-noto4').text('');
+  $('.rm-certi-noto5').text('');
+
+  //해당 이력서 정보 꽂아주기
   $('.rm-name').text(resumeVo.resumeDto.resumeName);
   $('.rm-phone').text(resumeVo.userPhoneNumber);
   $('.rm-address').text(resumeVo.resumeDto.resumeAddress);
@@ -89,34 +130,47 @@ function fillResume(resumeVo){
   if(resumeVo.resumeDto.schoolEndDate2 != ""){
     $('.rm-school-end2').text(' ~ ' + resumeVo.resumeDto.schoolEndDate2);
   }
-  $('.rm-career1').text(resumeVo.resumeDto.resumeCareer1);
-  $('.rm-career2').text(resumeVo.resumeDto.resumeCareer2);
-  $('.rm-career3').text(resumeVo.resumeDto.resumeCareer3);
-  $('.rm-career-start1').text(resumeVo.resumeDto.careerStartDate1);
-  $('.rm-career-start2').text(resumeVo.resumeDto.careerStartDate2);
-  $('.rm-career-start3').text(resumeVo.resumeDto.careerStartDate3);
-  if(resumeVo.resumeDto.careerEndDate1 != ""){
+  if(resumeVo.resumeDto.resumeCareer1 == "" || resumeVo.resumeDto.resumeCareer1 == null){
+    $('.rm-career-start1').text('없음');
+  }else{
+    $('.rm-career1').text(resumeVo.resumeDto.resumeCareer1);
+    $('.rm-career2').text(resumeVo.resumeDto.resumeCareer2);
+    $('.rm-career3').text(resumeVo.resumeDto.resumeCareer3);
+    $('.rm-career-start1').text(resumeVo.resumeDto.careerStartDate1);
+    $('.rm-career-start2').text(resumeVo.resumeDto.careerStartDate2);
+    $('.rm-career-start3').text(resumeVo.resumeDto.careerStartDate3);
+  }
+  if(resumeVo.resumeDto.careerEndDate1 != "" && resumeVo.resumeDto.careerEndDate1 != null){
     $('.rm-career-end1').text(' ~ ' + resumeVo.resumeDto.careerEndDate1);
   }
-  if(resumeVo.resumeDto.careerEndDate2 != ""){
+  if(resumeVo.resumeDto.careerEndDate2 != "" && resumeVo.resumeDto.careerEndDate2 != null){
     $('.rm-career-end2').text(' ~ ' + resumeVo.resumeDto.careerEndDate2);
   }
-  if(resumeVo.resumeDto.careerEndDate3 != ""){
+  if(resumeVo.resumeDto.careerEndDate3 != "" && resumeVo.resumeDto.careerEndDate3 != null){
     $('.rm-career-end3').text(' ~ ' + resumeVo.resumeDto.careerEndDate3);
   }
-  $('.rm-certi-name1').text(resumeVo.resumeDto.resumeCertiName1);
-  $('.rm-certi-name2').text(resumeVo.resumeDto.resumeCertiName2);
-  $('.rm-certi-name3').text(resumeVo.resumeDto.resumeCertiName3);
-  $('.rm-certi-name4').text(resumeVo.resumeDto.resumeCertiName4);
-  $('.rm-certi-name5').text(resumeVo.resumeDto.resumeCertiName5);
-  $('.rm-certi-grade1').text(resumeVo.resumeDto.resumeCertiGrade1);
-  $('.rm-certi-grade2').text(resumeVo.resumeDto.resumeCertiGrade2);
-  $('.rm-certi-grade3').text(resumeVo.resumeDto.resumeCertiGrade3);
-  $('.rm-certi-grade4').text(resumeVo.resumeDto.resumeCertiGrade4);
-  $('.rm-certi-grade5').text(resumeVo.resumeDto.resumeCertiGrade5);
-  $('.rm-certi-noto1').text(resumeVo.resumeDto.resumeCertiNoto1);
-  $('.rm-certi-noto2').text(resumeVo.resumeDto.resumeCertiNoto2);
-  $('.rm-certi-noto3').text(resumeVo.resumeDto.resumeCertiNoto3);
-  $('.rm-certi-noto4').text(resumeVo.resumeDto.resumeCertiNoto4);
-  $('.rm-certi-noto5').text(resumeVo.resumeDto.resumeCertiNoto5);
+  if(resumeVo.resumeDto.resumeCertiName1 == "" || resumeVo.resumeDto.resumeCertiName1 == null){
+    $('.certificate-name').find('.certi-title').text('');
+    $('.certificate-grade').find('.certi-title').text('없음');
+    $('.certificate-inst').find('.certi-title').text('');
+  }else{
+    $('.certificate-name').find('.certi-title').text('자격명칭');
+    $('.certificate-grade').find('.certi-title').text('등급');
+    $('.certificate-inst').find('.certi-title').text('증빙기관');
+    $('.rm-certi-name1').text(resumeVo.resumeDto.resumeCertiName1);
+    $('.rm-certi-name2').text(resumeVo.resumeDto.resumeCertiName2);
+    $('.rm-certi-name3').text(resumeVo.resumeDto.resumeCertiName3);
+    $('.rm-certi-name4').text(resumeVo.resumeDto.resumeCertiName4);
+    $('.rm-certi-name5').text(resumeVo.resumeDto.resumeCertiName5);
+    $('.rm-certi-grade1').text(resumeVo.resumeDto.resumeCertiGrade1);
+    $('.rm-certi-grade2').text(resumeVo.resumeDto.resumeCertiGrade2);
+    $('.rm-certi-grade3').text(resumeVo.resumeDto.resumeCertiGrade3);
+    $('.rm-certi-grade4').text(resumeVo.resumeDto.resumeCertiGrade4);
+    $('.rm-certi-grade5').text(resumeVo.resumeDto.resumeCertiGrade5);
+    $('.rm-certi-noto1').text(resumeVo.resumeDto.resumeCertiNoto1);
+    $('.rm-certi-noto2').text(resumeVo.resumeDto.resumeCertiNoto2);
+    $('.rm-certi-noto3').text(resumeVo.resumeDto.resumeCertiNoto3);
+    $('.rm-certi-noto4').text(resumeVo.resumeDto.resumeCertiNoto4);
+    $('.rm-certi-noto5').text(resumeVo.resumeDto.resumeCertiNoto5);
+  }
 }

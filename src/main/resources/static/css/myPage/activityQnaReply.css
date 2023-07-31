@@ -297,7 +297,43 @@ button:hover {
     margin-left: 5px;
 }
 
+/* 내가 작성한 QnA 댓글 없을경우 */
+.community-main-box-size {
+    margin-top: 100px;
+    width: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    flex-direction: column;
+}
 
+.community-main-box-size > span {
+    line-height: 28px;
+    text-align: center;
+    color: #8f8f8f;
+}
+
+.page-move-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+button {
+    padding: 10px;
+    height: 35px;
+    border-radius: 5px;
+    border: none;
+    background-color: #d4e5f9;
+    color: #2a7de1;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #c4dcf6;
+}
 
 
 

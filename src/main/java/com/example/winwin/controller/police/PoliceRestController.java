@@ -35,6 +35,16 @@ public class PoliceRestController {
 
     }
 
+//    진로정보 글 신고하기
+    @PostMapping("/careerInfo")
+    public void careerInfoReport(@RequestBody PoliceBoardDto policeBoardDto, HttpServletRequest req){
+        Long userNumber = (Long)req.getSession().getAttribute("userNumber");
+        policeBoardDto.setUserNumber(userNumber);
+        policeBoardDto.setBigCode("200");
+
+        policeService.policeBoardRegister(policeBoardDto);
+    }
+
     //    모임 글 신고하기
     @PostMapping("/study")
     public void studyReport(@RequestBody PoliceBoardDto policeBoardDto, HttpServletRequest req) {

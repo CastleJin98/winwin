@@ -63,4 +63,5 @@ public class CareerInfoLikeService {
 
         careerInfoLikeMapper.deleteCareerInfoLike(careerInfoLikeDto);
     }
+
 }

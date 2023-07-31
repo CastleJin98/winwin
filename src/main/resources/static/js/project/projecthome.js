@@ -16,6 +16,7 @@ $('.search-button').on('click', function (){
     }
 
 });
+
 // searchButton.addEventListener("click", function () {
 //     projectmodal.style.display = "flex";
 //     document.body.style.overflow = "hidden"; //모달창 스크롤 막기

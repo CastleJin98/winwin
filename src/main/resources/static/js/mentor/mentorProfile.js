@@ -61,10 +61,10 @@ $(".main-mentor").on("click",'.message-button' ,function () {
         alert("로그인 해주세요!");
         $('.login-move').trigger('click');
     }
-    if($('.loginstatus').val() == '멘토'){
-        alert("멘토이신 경우 신청이 불가능합니다.");
-    }
-    if(user != '' && $('.loginstatus').val() == '멘토+멘티' || $('.loginstatus').val() == '멘티'){
+    // if($('.loginstatus').val() == '멘토'){
+    //     alert("멘토이신 경우 신청이 불가능합니다.");
+    // }
+    if(user != ''){
         $(".modal-wrap1").removeClass("none");
         $(".modal-wrap1").css({
             position: "fixed",
@@ -570,10 +570,10 @@ $(".main-mentor").on("click",'.like-button' ,function (e){
         alert("로그인 해주세요!");
         $('.login-move').trigger('click')
     }
-    if($('.loginstatus').val() == '멘토'){
-        alert("멘토이신 경우 관심 멘토 등록이 불가합니다.");
-    }
-    if(user != '' && $('.loginstatus').val() == '멘토+멘티' || $('.loginstatus').val() == '멘티'){
+    // if($('.loginstatus').val() == '멘토'){
+    //     alert("멘토이신 경우 관심 멘토 등록이 불가합니다.");
+    // }
+    if(user != ''){
         e.preventDefault();
         let btn = $(this).find('.bi-heart');
         let btn2 =$(this).find('.bi-heart-fill');

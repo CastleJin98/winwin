@@ -435,3 +435,11 @@
   width: 20px;
   height: 20px;
 }
+
+.big-title{
+  font-weight: bold;
+  margin-left: 6px;
+  font-size: 24px;
+  display: block;
+  margin-bottom: 15px;
+}

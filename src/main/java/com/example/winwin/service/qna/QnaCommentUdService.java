@@ -56,4 +56,5 @@ public class QnaCommentUdService {
         }
         return qnaCommentUdMapper.udCnt(qnaCommentUdVo);
     }
+
 }

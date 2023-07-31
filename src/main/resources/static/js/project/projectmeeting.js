@@ -184,7 +184,7 @@ function makeList(list){
                         </div>
                         <br/>
                         <div class="project-text-wrap">
-                            <div class="project-sub-text2">${obj.studyStatus == '1' ? '모집 중' : '모집 완료'}</div>
+                            <div class="project-sub-text2" style="${obj.studyStatus == '1' ? 'color : green' : 'color : gray'}">${obj.studyStatus == '1' ? '모집 중' : '모집 완료'}</div>
                             <div class="vertical">&nbsp;|&nbsp;</div>
                             <div class="project-sub-text3">
                                 <a href="${'/project/read?studyNumber=' + obj.studyNumber}" style="color: black;}">${obj.studyTitle}</a></div>`

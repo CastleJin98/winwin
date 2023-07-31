@@ -349,3 +349,8 @@ input {
 tbody > tr:last-child td {
     border-bottom: none;
 }
+
+a{
+    text-decoration-line: none;
+    color: #837c7c;
+}

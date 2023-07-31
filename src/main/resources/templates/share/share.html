@@ -40,7 +40,7 @@
                 <div>
                     <div class="community-user-name" th:text="${session.userNickname}"></div>
                     <div class="community-pfp-belong" th:text="${profile.userPosition}"></div>
-                    <div class="community-pfp-department" th:text="'Lv.' + ${profile.gradeName}"></div>
+                    <div class="community-pfp-department" th:text="'Lv. ' + ${profile.gradeName}"></div>
                 </div>
             </div>
             <div class="community-pfp-main-btn">
@@ -78,6 +78,7 @@
         </div>
         <!-- 회원 프로필&질문하기 버튼 끝 -->
     <div class="community">
+        <span class="big-title">📩나눔📩</span>
 
         <!-- 나눔 게시글 리스트 -->
 

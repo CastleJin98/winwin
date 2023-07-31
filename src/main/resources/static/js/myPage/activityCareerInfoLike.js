@@ -1,41 +1,55 @@
 // 진로정보 관심 글(좋아요) 무한스크롤 페이징
 let page = 1;
 
-getListPage({page : page}, appendList, showError);
+getListPage({page: page}, appendList, showError);
 
-$(window).on('scroll', function (){
-    if(Math.ceil($(window).scrollTop()) == $(document).height() - $(window).height()){
+$(window).on('scroll', function () {
+    if (Math.ceil($(window).scrollTop()) == $(document).height() - $(window).height()) {
         ++page;
-        getListPage({page : page}, appendList, showError)
+        getListPage({page: page}, appendList, showError)
     }
 });
 
-function getListPage(pageInfo, appendList, error){
+function getListPage(pageInfo, appendList, error) {
     // console.log("aaaaaaa");
     $.ajax({
-        url : `/myPages/myCareerInfoLike/${pageInfo.page}`,
-        type : 'get',
-        dataType : 'json',
-        success : function (result){
-            console.log(result);
-            if(appendList){
+        url: `/myPages/myCareerInfoLike/${pageInfo.page}`,
+        type: 'get',
+        dataType: 'json',
+        success: function (result) {
+            // console.log(result);
+            if (appendList) {
                 appendList(result);
             }
         },
-        error : error
+        error: error
     });
 }
 
-function appendList(map){
+function appendList(map) {
     let text = ``;
     let flag = 0;
 
-    map.activeBoardVoList.forEach(board => {
-        if(flag % 3 == 0){
-            text += `<div class="career-info-box">`;
-        }
+    if (map.activeBoardVoList.length == 0 && page == 1) {
+        text = `
+          <div class="community-main-box">
+            <span>앗! 아직 관심 글이 없습니다.😿 <br/>
+            관심 글을 등록하고 멘토와 이야기를 나눠보세요.</span>
+          </div>
+          <div class="page-move-btn">
+            <button class="mapage-careerinfo-path" onclick="location.href='/career/list'">진로정보 입장하기</button>
+          </div>
+        `;
 
-        text += `
+        $('.career-info-content').html(text);
+    } else {
+
+        map.activeBoardVoList.forEach(board => {
+            if (flag % 3 == 0) {
+                text += `<div class="career-info-box">`;
+            }
+
+            text += `
                <a class="career-click" href="/career/detail?careerInfoNumber=${board.boardNumber}">
                 <div class="career-box">
                   <div class="career-info">
@@ -49,8 +63,8 @@ function appendList(map){
                     <div class="career-user-profile-box">
                       <div class="career-profile-img">
                         ${board.boardSystemName == null ?
-            '<img src="/img/profile-basic.png"/>' :
-            '<img src=/profile/' + board.boardUuid + '_' + board.boardSystemName +'>'}
+                '<img src="/img/profile-basic.png"/>' :
+                '<img src=/profile/' + board.boardUuid + '_' + board.boardSystemName + '>'}
                       </div>
                       <div class="career-user-info">
                         <span class="career-user-name">${board.userNickname}</span>
@@ -76,20 +90,21 @@ function appendList(map){
                 </div>
               </a>
         `;
-        flag++;
+            flag++;
 
-        if(flag % 3 == 0){
+            if (flag % 3 == 0) {
+                text += `</div>`;
+            }
+        });
+
+        if (flag % 3 != 0) {
             text += `</div>`;
         }
-    });
 
-    if (flag % 3 != 0){
-        text += `</div>`;
+        $('.career-info-content').append(text);
     }
-
-    $('.career-info-content').append(text);
 }
 
-function showError(a, b, c){
-    console.log(c);
+function showError(a, b, c) {
+  console.log(c);
 }

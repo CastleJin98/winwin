@@ -156,7 +156,7 @@
           <div>
             <div class="community-user-name"  th:text="${qnaProfile.userNickname}"></div>
             <div class="community-pfp-belong" th:text="${qnaProfile.userPosition}" ></div>
-            <div class="community-pfp-department" th:text="${qnaProfile.gradeName}"></div>
+            <div class="community-pfp-department" th:text="'Lv. '+${qnaProfile.gradeName}"></div>
           </div>
         </div>
         <div class="community-pfp-main-btn">

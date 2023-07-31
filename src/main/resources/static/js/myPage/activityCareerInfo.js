@@ -20,22 +20,41 @@ function getListPage(pageInfo, appendList, error){
             console.log(result);
             if(appendList){
                 appendList(result);
+
             }
         },
         error : error
     });
+
 }
 
-function appendList(map){
+function appendList(map) {
     let text = ``;
     let flag = 0;
 
-    map.activeBoardVoList.forEach(board => {
-        if(flag % 3 == 0){
-            text += `<div class="career-info-box">`;
-        }
+    if (map.activeBoardVoList.length == 0 && page == 1) {
+        text = `
+          <div class="community-main-box">
+            <span>앗! 아직 작성한 글이 없습니다.😿 <br/>
+            게시글을 등록하고 자유롭게 이야기를 나눠보세요.</span>
+          </div>
+          <div class="page-move-btn">
+            <button class="mapage-careerinfo-path" onclick="location.href='/career/list'">진로정보 입장하기</button>
+          </div>
+        `;
 
-        text += `
+    $('.career-info-content').html(text);
+
+    } else {
+
+        map.activeBoardVoList.forEach(board => {
+            let regex = new RegExp('(<img([^>]+)>)', 'gi');
+
+            if (flag % 3 == 0) {
+                text += `<div class="career-info-box">`;
+            }
+
+            text += `
                <a class="career-click" href="/career/detail?careerInfoNumber=${board.boardNumber}">
                 <div class="career-box">
                   <div class="career-info">
@@ -43,14 +62,15 @@ function appendList(map){
                       <span class="career-tag">${board.subName}</span>
                       <span class="career-title">${board.boardTitle}</span>
                     </div>
-                    <span class="career-content">${board.boardContent}</span>
+<!--                    <span class="career-content">${board.boardContent}</span>-->
+                        <span class="career-content">${regex.test(board.boardContent) ? board.boardContent.match(regex)[0] : board.boardContent}</span>
                   </div>
                   <div class="career-bottom">
                     <div class="career-user-profile-box">
                       <div class="career-profile-img">
                         ${board.boardSystemName == null ?
-                            '<img src="/img/profile-basic.png"/>' :
-                            '<img src=/profile/' + board.boardUuid + '_' + board.boardSystemName +'>'}
+                '<img src="/img/profile-basic.png"/>' :
+                '<img src=/profile/' + board.boardUuid + '_' + board.boardSystemName + '>'}
                       </div>
                       <div class="career-user-info">
                         <span class="career-user-name">${board.userNickname}</span>
@@ -76,18 +96,19 @@ function appendList(map){
                 </div>
               </a>
         `;
-        flag++;
+            flag++;
 
-        if(flag % 3 == 0){
+            if (flag % 3 == 0) {
+                text += `</div>`;
+            }
+        });
+
+        if (flag % 3 != 0) {
             text += `</div>`;
         }
-    });
 
-    if (flag % 3 != 0){
-        text += `</div>`;
+        $('.career-info-content').append(text);
     }
-
-    $('.career-info-content').append(text);
 }
 
 function showError(a, b, c){

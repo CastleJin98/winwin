@@ -1,5 +1,4 @@
-
-
+// 댓글 작성하기
 export function register(commentObj, callback){
     $.ajax({
        url : `/careerReplies/comment`,

@@ -16,6 +16,7 @@
                             ON QNA_NUMBER = #{qnaNumber} AND U.USER_NUMBER = Q.USER_NUMBER
                        LEFT OUTER JOIN USER_PFP P
                                        ON U.USER_NUMBER = P.USER_NUMBER
+        WHERE Q.qna_comment_status != '0'
         ORDER BY COMMENT_NUMBER DESC
     </select>
 
@@ -23,16 +24,22 @@
         SELECT Q.COMMENT_NUMBER, Q.COMMENT_CONTENT, Q.COMMENT_DATE, Q.QNA_NUMBER, Q.USER_NUMBER, G.GRADE_NAME, U.USER_NICKNAME,
                U.USER_ID, U.USER_BELONG, P.PFP_SYSTEM_NAME, P.PFP_UUID,
                NVL(CCU.UD_STATUS,'x') AS UD_STATUS
-                ,(SELECT COUNT(UD_STATUS) FROM QNA_COMMENT_UD WHERE QNA_COMMENT_UD.COMMENT_NUMBER = Q.COMMENT_NUMBER AND CCU.UD_STATUS = 'u') AS UD_CNT
+                ,(SELECT COUNT(UD_STATUS) FROM QNA_COMMENT_UD WHERE QNA_COMMENT_UD.COMMENT_NUMBER = Q.COMMENT_NUMBER AND QNA_COMMENT_UD.UD_STATUS = 'u') AS UD_CNT
         FROM WW_USER U JOIN QNA_COMMENT Q
                             ON QNA_NUMBER = #{qnaNumber} AND U.USER_NUMBER = Q.USER_NUMBER
                        LEFT OUTER JOIN QNA_COMMENT_UD CCU
                                        ON Q.COMMENT_NUMBER = CCU.COMMENT_NUMBER
+                                        <choose>
+                                            <when test="sessionUserNumber == null">
+                                                AND CCU.USER_NUMBER  = -1
+                                            </when>
+                                            <otherwise>AND CCU.USER_NUMBER  = #{sessionUserNumber}</otherwise>
+                                        </choose>
                        LEFT OUTER JOIN USER_PFP P
-
                        ON Q.USER_NUMBER = P.USER_NUMBER
                        LEFT OUTER JOIN GRADE G
                        ON U.USER_GRADE = G.GRADE_NUMBER
+        WHERE Q.qna_comment_status != '0'
         ORDER BY Q.COMMENT_NUMBER DESC
     </select>
 

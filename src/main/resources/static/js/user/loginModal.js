@@ -149,15 +149,15 @@ $('.modal-next').on('click', function(){
 
 
     if ($current.hasClass('identity-belong-box')){
-        let $selectBox = $('select[name=identity-belong]');
-        console.log($selectBox.val());
-        if($selectBox.val() == "identity-office-worker"){
+        // let $selectBox = $('select[name=identity-belong]');
+        // console.log($selectBox.val());
+        // if($selectBox.val() == "identity-office-worker"){
+        //     $next = $('.mentor-goal-box');
+        // }else if($selectBox.val() == "identity-university-student"){
+        //     $next = $('.mentor-goal-2-box');
+        // }else{
+        // }
             $next = $('.mentor-goal-box');
-        }else if($selectBox.val() == "identity-university-student"){
-            $next = $('.mentor-goal-2-box');
-        }else{
-            $next = $('.mentor-goal-box');
-        }
     }
 
 
@@ -165,20 +165,20 @@ $('.modal-next').on('click', function(){
     if ($current.hasClass('mentor-goal-box')){
 
         if($('.userBelong').val() == ''){
-            $('#com-check-msg').html("회사명을 입력해 주세요.");
+            $('#com-check-msg').html("회사명/학교명을 입력해 주세요.");
             return;
         }
         $next = $('.certification-box');
     }
 
-    if ($current.hasClass('mentor-goal-2-box')){
-
-        if($('.userBelong2').val() == ''){
-            $('#un-check-msg').html("학교명을 입력해 주세요.");
-            return;
-        }
-        $next = $('.certification-box');
-    }
+    // if ($current.hasClass('mentor-goal-2-box')){
+    //
+    //     if($('.userBelong2').val() == ''){
+    //         $('#un-check-msg').html("학교명을 입력해 주세요.");
+    //         return;
+    //     }
+    //     $next = $('.certification-box');
+    // }
 
     if ($current.hasClass('certification-box')){
         $next = $('.sign-box');
@@ -381,11 +381,11 @@ $('.home-btn').on('click', function (){
     hiddenField.setAttribute("value", $('.userBelong').val());
     form.appendChild(hiddenField);
 
-    hiddenField = document.createElement("input");
-    hiddenField.setAttribute("type", "hidden");
-    hiddenField.setAttribute("name", "userBelong");
-    hiddenField.setAttribute("value", $('.userBelong2').val());
-    form.appendChild(hiddenField);
+    // hiddenField = document.createElement("input");
+    // hiddenField.setAttribute("type", "hidden");
+    // hiddenField.setAttribute("name", "userBelong");
+    // hiddenField.setAttribute("value", $('.userBelong2').val());
+    // form.appendChild(hiddenField);
 
 
     $('.job-tag>input').each((i, obj) => {

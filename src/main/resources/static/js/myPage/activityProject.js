@@ -28,14 +28,28 @@ function getListPage(pageInfo, appendList, error) {
 function appendList(map) {
     let text = '';
 
-    map.activeBoardVoList.forEach(board => {
-        text += `
+    if (map.activeBoardVoList.length == 0 && page == 1) {
+        text = `
+          <div class="community-main-box-size">
+            <span>앗! 활동 내역이 없어요.😿<br/>
+            활발한 활동을 통해 회원들과 소통을 나누어 보아요.</span>
+              <div class="page-move-btn">
+            <button class="mapage-careerinfo-path" onclick="location.href='/meeting/home'">모임 입장하기</button>
+          </div>
+          </div>
+        `;
+
+        $('.my-mentor-content').html(text);
+    } else {
+
+        map.activeBoardVoList.forEach(board => {
+            text += `
                 <a class="project-container" href="/project/read?studyNumber=${board.boardNumber}">
                 <div class="project-box">
                   <div class="project-top">
-                  ${  board.boardGood != 1 ?
-            `<span class="project-tag">스터디</span>` : `<span class="project-tag">프로젝트</span>`
-                    }
+                  ${board.boardGood != 1 ?
+                `<span class="project-tag">스터디</span>` : `<span class="project-tag">프로젝트</span>`
+            }
                     <span class="project-title">${board.boardTitle}</span>
                   </div>
                   <span class="project-content">${board.boardContent}</span>
@@ -60,8 +74,9 @@ function appendList(map) {
                 </div>
               </a>
         `;
-    });
-    $('.my-mentor-content').append(text);
+        });
+        $('.my-mentor-content').append(text);
+    }
 }
 
 function showError(a, b, c) {

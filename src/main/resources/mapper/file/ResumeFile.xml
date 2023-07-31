@@ -10,4 +10,7 @@
         FROM RESUME_FILE
         WHERE RESUME_NUMBER = #{resumeNumber}
     </select>
+    <delete id="deleteResumeFile">
+        DELETE FROM RESUME_FILE WHERE RESUME_NUMBER = #{resumeNumber}
+    </delete>
 </mapper>

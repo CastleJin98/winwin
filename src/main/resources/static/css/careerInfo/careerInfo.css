@@ -76,8 +76,7 @@
 
 
 .card-wrap{
-    /*width: 1050px;*/
-    width: 1000px;
+    width: 1050px;
     margin: auto;
     display: flex;
     background-color: #fff;
@@ -708,7 +707,7 @@ ul {
     height: 320px;
     border: 1px solid #ddd;
     border-radius: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .career-info{
@@ -828,7 +827,7 @@ ul {
 .career-click{
     display: block;
     cursor: pointer;
-    margin-right: 20px;
+    margin-right: 40px;
 }
 
 .career-click{

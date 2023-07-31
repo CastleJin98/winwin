@@ -108,7 +108,6 @@ function appendList(map) {
                         </div>
                         <div class="share-time">${timeForToday(share.shareDate)}</div>
                     </div>
-
                 </div>
                 <div class="share-sub-img">
                     <div class="share-img">
@@ -123,7 +122,6 @@ function appendList(map) {
         </div>
         `;
 
-        // text += ``
     });
     $('.community').append(text);
 }

@@ -17,45 +17,12 @@ $("#inputMessage").keyup(function (e) {
     }
 });
 
-
-// 쪽지 보내기
-$('.input-container').on('click','.send-btn', function (){
-
-    let num = $('.chattingTo').data('num');
-    // let shareNumber = $('.share-num').val();
-    // let wingAmount = $('.share-wing-count').text();
-
-    console.log("드러와 !!!!!!!!!!");
-    console.log(num);
-
-    $.ajax({
-        url: "/chattings/shareModal/",
-        type: 'post',
-        data: JSON.stringify({chattingTo : num, chattingContent : $('#inputMessage').val()}),
-        contentType : "application/json; charset=utf-8",
-        success: function (){
-            alert("전송이 완료되었습니다.");
-            $('#inputMessage').val('');
-            $('.input-wrap').addClass('none');
-            $('body').css('overflow', 'auto');
-            $('.form-reset')[0].reset();
-
-
-        }
-    })
-
-});
-
-
 // 나눔 쪽지 보내기
 $('.input-container').on('click','.send-btn', function (){
 
     let num = $('.chattingTo').data('num');
     let shareNumber = $('.share-num').val();
     let wingAmount = $('.share-wing-count').text();
-
-    console.log("드러와 !!!!!!!!!!");
-    console.log(num);
 
         $.ajax({
             url: "/chattings/shareModal/" + shareNumber + "/" + wingAmount,
@@ -79,26 +46,24 @@ $('.input-container').on('click','.send-btn', function (){
 $('.input-container').on('click','.send-btn', function (){
 
     let num = $('.chattingTo').data('num');
-    // let shareNumber = $('.share-num').val();
-    // let wingAmount = $('.share-wing-count').text();
+    let shareNumber = $('.share-num').val();
+    let wingAmount = $('.share-wing-count').text();
 
-    console.log("드러와 !!!!!!!!!!");
-    console.log(num);
-
-    $.ajax({
-        url: "/chattings/inputModal",
-        type: 'post',
-        data: JSON.stringify({chattingTo : num, chattingContent : $('#inputMessage').val()}),
-        contentType : "application/json; charset=utf-8",
-        success: function (){
-            alert("전송이 완료되었습니다.");
-            $('#inputMessage').val('');
-            $('.input-wrap').addClass('none');
-            $('body').css('overflow', 'auto');
-            $('.form-reset')[0].reset();
-        }
-    })
-
+    if(shareNumber == null || wingAmount == null){
+        $.ajax({
+            url: "/chattings/inputModal",
+            type: 'post',
+            data: JSON.stringify({chattingTo : num, chattingContent : $('#inputMessage').val()}),
+            contentType : "application/json; charset=utf-8",
+            success: function (){
+                alert("전송이 완료되었습니다.");
+                $('#inputMessage').val('');
+                $('.input-wrap').addClass('none');
+                $('body').css('overflow', 'auto');
+                $('.form-reset')[0].reset();
+            }
+        })
+    }
 });
 
 

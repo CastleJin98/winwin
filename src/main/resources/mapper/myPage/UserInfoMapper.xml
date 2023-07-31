@@ -56,12 +56,6 @@
         where USER_NUMBER = #{userNumber}
     </delete>
 
-    <update id="deleteUser">
-        UPDATE WW_USER
-        SET USER_STATUS = 0
-        WHERE USER_NUMBER = #{userNumber}
-    </update>
-
     <select id="checkMentor">
         SELECT COUNT(MENTOR_NUMBER)
         FROM MENTOR
@@ -80,5 +74,142 @@
         FROM WW_USER
         WHERE USER_NUMBER = #{userNumber}
     </select>
+
+    <select id="selectMentorNumber">
+        SELECT MENTOR_NUMBER FROM MENTOR WHERE USER_NUMBER = #{userNumber}
+    </select>
+
+    <select id="selectResumeNumber" resultType="long">
+        SELECT RESUME_NUMBER FROM RESUME WHERE USER_NUMBER = #{userNumber}
+    </select>
+
+    <select id="selectShareNumber" resultType="long">
+        SELECT SHARE_NUMBER FROM SHARE_FREE WHERE USER_NUMBER = #{userNumber}
+    </select>
+
+    <select id="selectCommunityNumber" resultType="long">
+        SELECT COMMUNITY_NUMBER FROM COMMUNITY WHERE USER_NUMBER = #{userNumber}
+    </select>
+
+    <select id="selectQnaNumber" resultType="long">
+        SELECT QNA_NUMBER FROM QNA WHERE USER_NUMBER = #{userNumber}
+    </select>
+
+    <select id="selectCareerInfoNumber" resultType="long">
+        SELECT CAREERINFO_NUMBER FROM CAREERINFO WHERE USER_NUMBER = #{userNumber}
+    </select>
+
+<!--    회원 삭제 -->
+<!--    USER와 1:1 연결된 테이블-->
+    <delete id="deleteTodo"> DELETE FROM TODO WHERE USER_NUMBER = #{userNumber} </delete>
+    <delete id="deleteResumePr"> DELETE FROM RESUME_PR WHERE USER_NUMBER = #{userNumber} </delete>
+    <delete id="deleteUserPfp"> DELETE FROM USER_PFP WHERE USER_NUMBER = #{userNumber} </delete>
+    <delete id="deleteDiary"> DELETE FROM DIARY WHERE USER_NUMBER = #{userNumber} </delete>
+    <delete id="deleteUserFile"> DELETE FROM USER_FILE WHERE USER_NUMBER = #{userNumber} </delete>
+    <delete id="deleteWing"> DELETE FROM WING WHERE USER_NUMBER = #{userNumber} </delete>
+    <delete id="deleteResumeFile"> DELETE FROM RESUME_FILE WHERE RESUME_NUMBER IN
+        <foreach collection="resumeNumberList" item="resumeNumber" open="(" close=")" separator=",">
+            #{resumeNumber}
+        </foreach>
+    </delete>
+    <delete id="deleteResume"> DELETE FROM RESUME WHERE USER_NUMBER = #{userNumber} </delete>
+    <delete id="deleteChatting"> DELETE FROM CHATTING WHERE CHATTING_TO = #{userNumber} OR CHATTING_FROM = #{userNumber} </delete>
+    <delete id="deleteSuBridge"> DELETE FROM SU_BRIDGE WHERE USER_NUMBER = #{userNumber} </delete>
+
+<!--    모임-->
+    <delete id="deleteStudyLike"> DELETE FROM STUDY_LIKE WHERE USER_NUMBER = #{userNumber} </delete>
+    <delete id="deleteStudyComment"> DELETE FROM STUDY_COMMENT WHERE USER_NUMBER = #{userNumber} </delete>
+    <delete id="deleteStudy"> DELETE FROM STUDY WHERE USER_NUMBER = #{userNumber} </delete>
+
+<!--    문의사항-->
+    <delete id="deleteCsComment"> DELETE FROM CS_COMMENT WHERE USER_NUMBER = #{userNumber} </delete>
+    <delete id="deleteCs"> DELETE FROM CS WHERE USER_NUMBER = #{userNumber} </delete>
+
+<!--    신고-->
+    <delete id="deletePoliceComment"> DELETE FROM POLICE_COMMENT WHERE USER_NUMBER = #{userNumber} </delete>
+    <delete id="deletePoliceBoard"> DELETE FROM POLICE_BOARD WHERE USER_NUMBER = #{userNumber} </delete>
+
+<!--    진로정보-->
+    <delete id="deleteCareerInfoComment"> DELETE FROM CAREERINFO_COMMENT WHERE USER_NUMBER = #{userNumber}
+        <if test="careerInfoNumberList.size != 0">
+           OR CAREERINFO_NUMBER IN
+            <foreach collection="careerInfoNumberList" item="careerInfoNumber" open="(" close=")" separator=",">
+                #{careerInfoNumber}
+            </foreach>
+        </if>
+    </delete>
+    <delete id="deleteCareerInfoLike"> DELETE FROM CAREERINFO_LIKE WHERE USER_NUMBER = #{userNumber}
+        <if test="careerInfoNumberList.size != 0">
+            OR CAREERINFO_NUMBER IN
+            <foreach collection="careerInfoNumberList" item="careerInfoNumber" open="(" close=")" separator=",">
+                #{careerInfoNumber}
+            </foreach>
+        </if>
+    </delete>
+
+    <delete id="deleteCareerInfo"> DELETE FROM CAREERINFO WHERE USER_NUMBER = #{userNumber} </delete>
+
+<!--    멘토-->
+    <delete id="deleteMentorReview"> DELETE FROM MENTOR_REVIEW WHERE USER_NUMBER = #{userNumber}
+        <if test="mentorNumber != null">
+            OR MENTOR_NUMBER = #{mentorNumber}
+        </if>
+    </delete>
+    <delete id="deleteMentorLike"> DELETE FROM MENTOR_LIKE WHERE USER_NUMBER = #{userNumber}
+        <if test="mentorNumber != null">
+            OR MENTOR_NUMBER = #{mentorNumber}
+        </if>
+    </delete>
+    <delete id="deleteUmBridge"> DELETE FROM UM_BRIDGE WHERE USER_NUMBER = #{userNumber}
+        <if test="mentorNumber != null">
+            OR MENTOR_NUMBER = #{mentorNumber}
+        </if>
+    </delete>
+    <delete id="deleteMentorSkill"> DELETE FROM MENTOR_SKILL WHERE MENTOR_NUMBER = #{mentorNumber} </delete>
+    <delete id="deleteMentorCareer"> DELETE FROM MENTOR_CAREER WHERE MENTOR_NUMBER = #{mentorNumber} </delete>
+    <delete id="deleteMentorProfile"> DELETE FROM MENTOR_PROFILE WHERE USER_NUMBER = #{userNumber} </delete>
+    <delete id="deleteMentor"> DELETE FROM MENTOR WHERE USER_NUMBER = #{userNumber} </delete>
+
+<!--    나눔-->
+    <delete id="deleteWingShare"> DELETE FROM WING_SHARE WHERE USER_NUMBER = #{userNumber} </delete>
+    <delete id="deleteShareFile"> DELETE FROM SHARE_FILE WHERE SHARE_NUMBER IN
+        <foreach collection="shareNumberList" item="shareNumber" open="(" close=")" separator=",">
+            #{shareNumber}
+        </foreach>
+    </delete>
+    <delete id="deleteShareFree"> DELETE FROM SHARE_FREE WHERE USER_NUMBER = #{userNumber} </delete>
+
+<!--    커뮤니티-->
+    <delete id="deleteCommunityGood"> DELETE FROM COMMUNITY_GOOD WHERE USER_NUMBER = #{userNumber} </delete>
+    <delete id="deleteCommunityCommentUd"> DELETE FROM COMMUNITY_COMMENT_UD WHERE USER_NUMBER = #{userNumber} </delete>
+    <delete id="deleteCommunityComment"> DELETE FROM COMMUNITY_COMMENT WHERE USER_NUMBER = #{userNumber} </delete>
+    <delete id="deleteCommunityFile"> DELETE FROM COMMUNITY_FILE WHERE COMMUNITY_NUMBER IN
+        <foreach collection="communityNumberList" item="communityNumber" open="(" close=")" separator=",">
+            #{communityNumber}
+        </foreach>
+    </delete>
+    <delete id="deleteCommunity"> DELETE FROM COMMUNITY WHERE USER_NUMBER = #{userNumber} </delete>
+
+<!--    QnA-->
+    <delete id="deleteQsBridge"> DELETE FROM QS_BRIDGE WHERE QNA_NUMBER IN
+        <foreach collection="qnaNumberList" item="qnaNumber" open="(" close=")" separator=",">
+            #{qnaNumber}
+        </foreach>
+    </delete>
+    <delete id="deleteQnaGood"> DELETE FROM QNA_GOOD WHERE USER_NUMBER = #{userNumber} </delete>
+    <delete id="deleteQnaCommentUd"> DELETE FROM QNA_COMMENT_UD WHERE USER_NUMBER = #{userNumber}
+       <if test="qnaNumberList.size != 0">
+           OR  COMMENT_NUMBER IN
+            <foreach collection="qnaNumberList" item="qnaNumber" open="(" close=")" separator=",">
+                #{qnaNumber}
+            </foreach>
+       </if>
+    </delete>
+    <delete id="deleteQnaComment"> DELETE FROM QNA_COMMENT WHERE USER_NUMBER = #{userNumber} </delete>
+    <delete id="deleteQna"> DELETE FROM QNA WHERE USER_NUMBER = #{userNumber} </delete>
+
+<!--    비로소-->
+    <delete id="deleteUser"> DELETE FROM WW_USER WHERE USER_NUMBER = #{userNumber} AND USER_STATUS != 3 </delete>
+<!--    /회원 삭제-->
 
 </mapper>

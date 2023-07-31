@@ -39,7 +39,7 @@
                                  JOIN MENTOR_LIKE ml
                                       ON m.MENTOR_NUMBER = ml.MENTOR_NUMBER AND ml.USER_NUMBER = #{userNumber}
                                  LEFT OUTER JOIN UM_BRIDGE ub
-                                      ON m.MENTOR_NUMBER = ub.MENTOR_NUMBER
+                                      ON m.MENTOR_NUMBER = ub.MENTOR_NUMBER AND ub.USER_NUMBER = #{userNumber}
                                  LEFT OUTER JOIN USER_PFP up
                                                  ON wu.USER_NUMBER = up.USER_NUMBER
                  WHERE wu.USER_BELONG = mc.CAREER_COMPANY

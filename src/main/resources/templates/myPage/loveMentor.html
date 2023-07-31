@@ -60,7 +60,7 @@
           <div class="mypage-main">
             <div class="title"><h2>내 멘토 : 멘티</h2></div>
             <div class="category">
-              <th:block th:if="${user == '멘티'}">
+              <th:block th:if="${session.mentorNumber == -1}">
                 <div class="category-contain point-mentor">
                   <h4>내 멘토</h4>
                 </div>
@@ -68,7 +68,7 @@
                   <h4 id="point-page1">관심 멘토</h4>
                 </div>
               </th:block>
-              <th:block th:if="${user == '멘토+멘티'}">
+              <th:block th:if="${session.mentorNumber > -1}">
                 <div class="category-contain point-mentor">
                   <h4>내 멘토</h4>
                 </div>
@@ -79,18 +79,21 @@
                   <h4 id="point-page2">관심 멘토</h4>
                 </div>
               </th:block>
-
-              <th:block th:if="${user == '멘토'}">
-                <div class="category-contain point-mentee">
-                  <h4 id="point-page3">내 멘티</h4>
-                </div>
-                <!--                <div class="category-contain like-mentor">-->
-                <!--                  <h4>관심 멘토</h4>-->
-                <!--                </div>-->
-              </th:block>
-
             </div>
             <div class="my-mentor-content">
+              <!-- 관심멘토가 없을 경우 -->
+              <th:block th:if="${like == null or #lists.isEmpty(like)}">
+                <div class="community-main-box">
+                    <span>앗! 아직 관심 멘토가 없습니다.😿 <br/>
+                    관심 멘토를 등록하고 자유롭게 이야기를 나눠보세요.</span>
+                  <div class="page-move-btn">
+                    <button class="mapage-careerinfo-path" onclick="location.href='/mentor/list'">멘토 : 멘티
+                      입장하기
+                    </button>
+                  </div>
+                </div>
+              </th:block>
+              <!--              -->
               <!-- 멘토 프로필 -->
               <article class="item" th:each="mentor : ${like}">
                 <section class="mento-profile">

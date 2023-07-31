@@ -28,8 +28,22 @@ function getListPage(pageInfo, appendList, error) {
 function appendList(map) {
     let text = '';
 
-    map.activeBoardVoList.forEach(board => {
-        text += `
+    if (map.activeBoardVoList.length == 0 && page == 1) {
+        text = `
+          <div class="community-main-box-size">
+            <span>앗! 활동 내역이 없어요.😿<br/>
+            활발한 활동을 통해 회원들과 소통을 나누어 보아요.</span>
+            <div class="page-move-btn">
+            <button class="mapage-careerinfo-path" onclick="location.href='/qna/list'">QnA 입장하기</button>
+          </div>
+          </div>
+        `;
+
+        $('.my-mentor-content').html(text);
+    } else {
+
+        map.activeBoardVoList.forEach(board => {
+            text += `
            <a class="community-main-box" href="/qna/read?qnaNumber=${board.boardNumber}">
             <div class="community-box">
               <div class="community-sub-content">
@@ -59,8 +73,9 @@ function appendList(map) {
             </div>
           </a>
         `;
-    });
-    $('.my-mentor-content').append(text);
+        });
+        $('.my-mentor-content').append(text);
+    }
 }
 
 function showError(a, b, c) {

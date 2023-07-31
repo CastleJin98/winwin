@@ -3,6 +3,7 @@ package com.example.winwin.mapper.myPage;
 import com.example.winwin.dto.user.UserDto;
 import com.example.winwin.vo.user.UserVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,63 @@ public interface UserInfoMapper {
     public String selectUserNickname(Long userNumber);
 
 //    회원 탈퇴
+    //멘토넘버 가져오기
+    public Long selectMentorNumber(Long userNumber);
+    //이력서 번호 리스트
+    public List<Long> selectResumeNumber(Long userNumber);
+    //나눔 글번호 리스트
+    public List<Long> selectShareNumber(Long userNumber);
+    //커뮤니티 글번호 리스트
+    public List<Long> selectCommunityNumber(Long userNumber);
+    //qna 글번호 리스트
+    public List<Long> selectQnaNumber(Long userNumber);
+    //진로정보 글번호 리스트
+    public List<Long> selectCareerInfoNumber(Long userNumber);
+
+
+    public void deleteTodo(Long userNumber);
+    public void deleteResumePr(Long userNumber);
+    public void deleteUserPfp(Long userNumber);
+    public void deleteDiary(Long userNumber);
+    public void deleteUserFile(Long userNumber);
+    public void deleteWing(Long userNumber);
+    public void deleteResumeFile(List<Long> resumeNumberList);
+    public void deleteResume(Long userNumber);
+    public void deleteChatting(Long userNumber);
+    public void deleteSuBridge(Long userNumber);
+
+    public void deleteStudyLike(Long userNumber);
+    public void deleteStudyComment(Long userNumber);
+    public void deleteStudy(Long userNumber);
+
+    public void deleteCsComment(Long userNumber);
+    public void deleteCs(Long userNumber);
+    public void deletePoliceComment(Long userNumber);
+    public void deletePoliceBoard(Long userNumber);
+    public void deleteCareerInfoComment(Long userNumber, List<Long> careerInfoNumberList);
+    public void deleteCareerInfoLike(Long userNumber, List<Long> careerInfoNumberList);
+    public void deleteCareerInfo(Long userNumber);
+    public void deleteMentorReview(Long userNumber, Long mentorNumber);
+    public void deleteMentorLike(Long userNumber, Long mentorNumber);
+    public void deleteUmBridge(Long userNumber, Long mentorNumber);
+    public void deleteMentorSkill(Long mentorNumber);
+    public void deleteMentorCareer(Long mentorNumber);
+    public void deleteMentorProfile(Long userNumber);
+    public void deleteMentor(Long userNumber);
+    public void deleteWingShare(Long userNumber);
+    public void deleteShareFile(List<Long> shareNumberList);
+    public void deleteShareFree(Long userNumber);
+
+    public void deleteCommunityGood(Long userNumber);
+    public void deleteCommunityCommentUd(Long userNumber);
+    public void deleteCommunityComment(Long userNumber);
+    public void deleteCommunityFile(List<Long> communityNumberList);
+    public void deleteCommunity(Long userNumber);
+    public void deleteQsBridge(List<Long> qnaNumberList);
+    public void deleteQnaGood(Long userNumber);
+    public void deleteQnaCommentUd(Long userNumber, List<Long> qnaNumberList);
+    public void deleteQnaComment(Long userNumber);
+    public void deleteQna(Long userNumber);
     public void deleteUser(Long userNumber);
 
 }

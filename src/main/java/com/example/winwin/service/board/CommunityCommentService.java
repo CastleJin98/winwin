@@ -2,6 +2,7 @@ package com.example.winwin.service.board;
 
 import com.example.winwin.dto.board.CommunityCommentDto;
 import com.example.winwin.mapper.board.CommunityCommentMapper;
+import com.example.winwin.mapper.like.CommunityCommentUdMapper;
 import com.example.winwin.vo.board.CommunityCommentVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @Transactional
 public class CommunityCommentService {
     private final CommunityCommentMapper communityCommentMapper;
+    private final CommunityCommentUdMapper communityCommentUdMapper;
 
     public void register(CommunityCommentDto communityCommentDto){
         if (communityCommentDto == null) {
@@ -70,5 +72,15 @@ public class CommunityCommentService {
 
         return communityCommentMapper.findCommentUdList(communityCommentVo);
     }
+
+    public void deleteCommentUd(Long commentNumber){
+        if (commentNumber == null) {
+            throw new IllegalArgumentException("댓글 번호 누락");
+        }
+        communityCommentUdMapper.deleteCommentUd(commentNumber);
+    }
+
+
+
 }
 

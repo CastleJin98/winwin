@@ -58,12 +58,12 @@
     <select id="selectCareerInfoList" resultType="careerInfoVo">
         select mentor_number, user_number, sub_number,
         USER_NICKNAME, PFP_UPLOAD_PATH, PFP_SYSTEM_NAME, PFP_UUID,
-        sub_name, grade_name, careerinfo_number, careerinfo_title, careerinfo_content, careerinfo_cnt,
+        sub_name, grade_name, careerinfo_number, careerinfo_title, careerinfo_content, careerinfo_cnt, CAREERINFO_STATUS,
         NVL(LIKE_CNT, 0) AS LIKE_CNT
         from (
         select ROWNUM RN, mentor_number, user_number, sub_number,
         USER_NICKNAME, PFP_UPLOAD_PATH, PFP_SYSTEM_NAME, PFP_UUID,
-        sub_name, grade_name, careerinfo_number, careerinfo_title, careerinfo_content, careerinfo_cnt,
+        sub_name, grade_name, careerinfo_number, careerinfo_title, careerinfo_content, careerinfo_cnt, CAREERINFO_STATUS,
         NVL(LIKE_CNT, 0) AS LIKE_CNT
         from (
         SELECT S1.mentor_number, S1.user_number, S1.sub_number,
@@ -71,7 +71,7 @@
         PFP_UPLOAD_PATH, PFP_SYSTEM_NAME, PFP_UUID,
         SC.sub_name,
         G.grade_name,
-        CI.careerinfo_title, CI.careerinfo_content, CI.careerinfo_cnt, CI.CAREERINFO_NUMBER,
+        CI.careerinfo_title, CI.careerinfo_content, CI.careerinfo_cnt, CI.CAREERINFO_NUMBER, CI.CAREERINFO_STATUS,
         NVL(J1.LIKE_CNT, 0) LIKE_CNT
         FROM (
         SELECT mentor_number, user_number, sub_number
@@ -99,6 +99,7 @@
         GROUP BY careerinfo_number
         ) J1
         ON J1.careerinfo_number = CI.careerinfo_number
+        where CI.CAREERINFO_STATUS != '0'
         ORDER BY CI.CAREERINFO_DATE DESC
         )
         <![CDATA[

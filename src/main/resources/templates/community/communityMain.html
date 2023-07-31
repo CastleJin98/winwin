@@ -45,7 +45,7 @@
                     <div class="community-pfp-belong" th:text="${communityProfileVo.userPosition}">
                     </div>
                     <div class="community-pfp-department">
-                        Lv.<span class="mentor-grade2" th:text="${communityProfileVo.gradeName}"></span>
+                        <span class="mentor-grade2" th:text="'Lv. ' + ${communityProfileVo.gradeName}"></span>
                     </div>
                 </div>
             </div>
@@ -92,6 +92,7 @@
             <span class="big-title" th:if="${categoryTypeStr == '10'}">✍고등학생 게시판✍</span>
             <span class="big-title" th:if="${categoryTypeStr == '20'}">🧑‍🎓대학생 게시판👩‍🎓</span>
             <span class="big-title" th:if="${categoryTypeStr == '30'}">💼직장인 게시판💼</span>
+            <span class="big-title" th:unless="${categoryTypeStr == '10' or categoryTypeStr == '20' or categoryTypeStr == '30'}">⌛타임라인⌛</span>
 <!--            <span th:if="${communityVoList.categoryName == '직장인'}" class="big-title" th:text="직장인 게시판"></span>-->
 <!--            <span th:if="${communityVoList.categoryName == '대학생'}" class="big-title" th:text="대학생 게시판"></span>-->
             <div class="community-main-box" th:each="communityVoList : ${communityVoList}"

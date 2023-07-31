@@ -1,27 +1,26 @@
-
 // 모달창
 $(function () {
     $(".send-main").on('click', '.message-box', function () {
         $(".send-wrap").css("display", "flex");
         $(".send-wrap").fadeIn();
 
-        let chattingNumber= $(this).closest('.message-box').find('.message-list').data('cnum');
+        let chattingNumber = $(this).closest('.message-box').find('.message-list').data('cnum');
 
         $.ajax({
             url: "/chattings/sendModal2",
             type: 'get',
-            data: {chattingNumber : chattingNumber},
-            success: function (result){
-                if(result == null){
+            data: {chattingNumber: chattingNumber},
+            success: function (result) {
+                if (result == null) {
                     alert("삭제된 쪽지입니다.");
                 }
                 $('.send-sender').text(result.userNickname);
                 $('.send-content-chat').text(result.chattingContent);
                 $('.send-date-s').text(result.chattingDate);
 
-                if(result.pfpSystemName != null){
+                if (result.pfpSystemName != null) {
                     $('.send-message-profile-img').css("background-image", "url(/profile/" + result.pfpUuid + "_" + result.pfpSystemName + ")");
-                }else{
+                } else {
                     $('.send-message-profile-img').css("background-image", "url(/img/profile-basic.png)");
                 }
             }
@@ -48,8 +47,6 @@ $(".send-wrap").on("click", function (e) {
         $('.form-reset')[0].reset();
     }
 });
-
-
 
 
 // 무한스크롤
@@ -83,24 +80,36 @@ function getListPage(pageInfo, appendList, error) {
 function appendList(map) {
     let text = '';
 
-    map.chattingVoList.forEach(chatting => {
+    if (map.chattingVoList.length == 0 && pageNumber == 1) {
+        text = `
+          <div class="community-main-box">
+            <span>앗! 보낸 쪽지가 없어요.😿<br/>
+            회원들과 활발한 쪽지를 나누어 보아요.</span>
+          </div>
+        `;
 
-        text += `
+        $('.send-main').html(text);
+
+    } else {
+
+        map.chattingVoList.forEach(chatting => {
+
+            text += `
                 <div class="message-box">
                         <span class="message-list" data-cnum="${chatting.chattingNumber}"></span>
                             <div class="message-box-top">
                                 <div class="sender-profile">
                                 `;
-        if(chatting.pfpSystemName == null){
-            text += `<div class="sender-img">
+            if (chatting.pfpSystemName == null) {
+                text += `<div class="sender-img">
                                   <img class="sender-img" src="/img/profile-basic.png"/>
                               </div>`;
-        }else{
-            text += `<div class="sender-img"
+            } else {
+                text += `<div class="sender-img"
                               style="${'background-image: url(/profile/' + chatting.pfpUuid + '_' + chatting.pfpSystemName + ')'}">
                               </div>`;
-        }
-                            text += `
+            }
+            text += `
                                     <span name="chattingTo" class="sender">${chatting.userNickname}</span>
                                 </div>
                                 <button class="send-reply" data-uunum="${chatting.userNumber}">✉ 보내기</button>
@@ -112,8 +121,9 @@ function appendList(map) {
                     </div>
         `;
 
-    });
-    $('.send-main').append(text);
+        });
+        $('.send-main').append(text);
+    }
 }
 
 function showError(a, b, c) {

@@ -52,6 +52,7 @@ public class QnaCommentController {
 
     @DeleteMapping("/{commentNumber}")
     public void commentRemove(@PathVariable("commentNumber") Long commentNumber){
+        qnaCommentService.deleteQnaCommentUd(commentNumber);
         qnaCommentService.remove(commentNumber);
     }
 }

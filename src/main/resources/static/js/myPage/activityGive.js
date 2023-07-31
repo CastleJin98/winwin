@@ -20,6 +20,7 @@ function getListPage(pageInfo, appendList, error) {
             if (appendList) {
                 appendList(result);
             }
+
         },
         error: error
     });
@@ -28,8 +29,22 @@ function getListPage(pageInfo, appendList, error) {
 function appendList(map) {
     let text = '';
 
-    map.activeBoardVoList.forEach(board => {
-        text += `
+    if (map.activeBoardVoList.length == 0 && page == 1) {
+        text = `
+          <div class="community-main-box-size">
+            <span>앗! 활동 내역이 없어요.😿<br/>
+            활발한 활동을 통해 회원들과 소통을 나누어 보아요.</span>
+              <div class="page-move-btn">
+            <button class="mapage-careerinfo-path" onclick="location.href='/share/list'">나눔 입장하기</button>
+          </div>
+          </div>
+        `;
+
+        $('.my-mentor-content').html(text);
+    } else {
+
+        map.activeBoardVoList.forEach(board => {
+            text += `
                     <div class="share-main-box">
                         <a class="give-click" href="/share/read?shareNumber=${board.boardNumber}">
                           <div class="give-container">
@@ -57,17 +72,18 @@ function appendList(map) {
                                 </div>
                               </div>
                               <div class="give-img-box">
-                              ${  board.boardUuid == null ?
-                                    `<img src="/img/defualt_camera.jpg">` : `<img src="${'/upload/' + board.boardUploadPath + '/th_' + board.boardUuid + '_' + board.boardSystemName}">`
-                                }
+                              ${board.boardUuid == null ?
+                `<img src="/img/defualt_camera.jpg">` : `<img src="${'/upload/' + board.boardUploadPath + '/th_' + board.boardUuid + '_' + board.boardSystemName}">`
+            }
                               </div>
                             </div>
                           </div>    
                         </a>
                    </div>
         `;
-    });
-    $('.my-mentor-content').append(text);
+        });
+        $('.my-mentor-content').append(text);
+    }
 }
 
 function showError(a, b, c) {

@@ -22,9 +22,6 @@ public class AdminController {
 
     private final AdminService adminService;
 
-
-
-
     @GetMapping("/user")
     // 전체 회원 조회
     public String adminUser(AdminVo adminVo, Model model){

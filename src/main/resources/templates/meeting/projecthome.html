@@ -82,7 +82,7 @@
                         <br/>
                         <br/>
                         <div class="topten-title-wrap">
-                            <div class="project-sub-text2" th:text="${project.studyStatus == '1' ? '모집 중' : '모집 완료'}">모집
+                            <div class="project-sub-text2" th:style="${project.studyStatus == '1' ? 'color : green' : 'color : gray'}" th:text="${project.studyStatus == '1' ? '모집 중' : '모집 완료'}">모집
                                 중
                             </div>
                             <div class="vertical">&nbsp;|&nbsp;</div>
@@ -147,7 +147,7 @@
                         <br>
                         <br>
                         <div class="study-title-wrap">
-                            <div class="project-sub-text2" th:text="${study.studyStatus == '1' ? '모집 중' : '모집 완료'}">모집
+                            <div class="project-sub-text2" th:style="${study.studyStatus == '1' ? 'color : green' : 'color : gray'}" th:text="${study.studyStatus == '1' ? '모집 중' : '모집 완료'}">모집
                                 중
                             </div>
                             <div class="vertical">&nbsp;|&nbsp;</div>

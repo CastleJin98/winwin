@@ -55,9 +55,9 @@
           <span>신원 :  </span>
           <select name="identity" id="identity" class="search-text2" style="font-family: NanumSquareAcr;">
             <option value="" class="officeWorkers" style="font-family: NanumSquareAcr;">선택</option>
-            <option value="W" class="officeWorkers" style="font-family: NanumSquareAcr;">직장인</option>
-            <option value="U" class="collegeStudent" style="font-family: NanumSquareAcr;">대학생</option>
-            <option value="H" class="highSchool" style="font-family: NanumSquareAcr;">고등학생</option>
+            <option value="직장인" class="officeWorkers" style="font-family: NanumSquareAcr;">직장인</option>
+            <option value="대학생" class="collegeStudent" style="font-family: NanumSquareAcr;">대학생</option>
+            <option value="고등학생" class="highSchool" style="font-family: NanumSquareAcr;">고등학생</option>
           </select>
           <span>부서/학과 : </span>
           <select name="mainCode" id="department" class="select-btn" style="font-family: NanumSquareAcr;">
@@ -126,13 +126,13 @@
               <select name="user-report-select" class="user-report-select" style="font-family: NanumSquareAcr;">
                 <option value="">선택</option>
                 <option value="1">일반 회원</option>
-                <option value="2">신고 회원</option>
+<!--                <option value="2">신고 회원</option>-->
                 <option value="3">영구 정지</option>
               </select>
             </td>
             <td class="report-resulting-success" align="center">
               <div th:if="${admin.userStatus} == 1"  class="blind-button Y" th:text="일반회원"></div>
-              <div th:if="${admin.userStatus} == 2"  class="blind-button A" th:text="신고회원"></div>
+<!--              <div th:if="${admin.userStatus} == 2"  class="blind-button A" th:text="신고회원"></div>-->
               <div th:if="${admin.userStatus} == 3"  class="blind-button B" th:text="영구정지"></div>
               <div th:if="${admin.userStatus} == 0"  class="blind-button B" th:text="탈퇴회원"></div>
             </td>

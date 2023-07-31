@@ -19,8 +19,6 @@ $(".header-li").hover(
 
 //마이페이지 로그인 실패 시 모달 창 띄워주기
 function showLoginModal(){
-    console.log('showLoginModal');
-    console.log($('.login-interceptor').val());
     if($('.login-interceptor').val()){
         console.log("come on")
         $(".login-move").trigger('click');

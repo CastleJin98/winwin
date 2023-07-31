@@ -49,7 +49,7 @@ public class MainController {
         }
 
 
-        if(userDto.getUserPosition().equals("mentor") || userDto.getUserPosition().equals("mentorMentee")){
+        if(userDto.getUserPosition().equals("mentor")){
             MentorDto mentorDto = new MentorDto();
             mentorDto.setUserNumber(userDto.getUserNumber());
             mentorDto.setCertificationNumber(certificationNumber.intValue());

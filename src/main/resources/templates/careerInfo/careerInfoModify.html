@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
-  <script src="../summernote/lang/summernote-ko-KR.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+          integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+          crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" th:href="@{/css/user/loginModal.css}" />
-  <link rel="stylesheet" th:href="@{/css/careerInfo/careerInfoWrite.css}"/>
-  <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css" rel="stylesheet" />
-  <link rel="stylesheet" th:href="@{/css/fragment/header.css}" />
+  <link rel="stylesheet" th:href="@{/css/user/loginModal.css}"/>
+  <link rel="stylesheet" th:href="@{/css/fragment/header.css}"/>
   <link rel="stylesheet" th:href="@{/css/fragment/footer.css}"/>
+  <link rel="stylesheet" th:href="@{/css/careerInfo/careerInfoWrite.css}"/>
+  <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css" rel="stylesheet"/>
   <style>
     body {
       font-family: "NanumSquareLight";
@@ -28,24 +26,15 @@
       font-family: "NanumSquareAcr";
     }
   </style>
-  <title>진로정보 글 수정하기</title>
-  <script>
-    $(document).ready(function() {
-      $('#summernote').summernote({
-        placeholder: 'content',
-        minHeight: 370,
-        maxHeight: null,
-        focus: true,
-        lang : 'ko-KR'
-      });
-    });
-  </script>
+  <title>진로정보 글 작성하기</title>
 
 </head>
 
 <body>
 <header class="header" th:replace="fragment/header :: header"></header>
-<form action="#" id="community-write">
+<form th:action="@{/career/modify}" method="post" id="community-write">
+  <input type="hidden" th:value="${career.careerInfoNumber}" name="careerInfoNumber">
+  <input type="hidden" th:value="${session.mentorNumber}"/>
   <div class="write-main">
     <div class="main-title">
       <div class="sub1">
@@ -56,53 +45,27 @@
     </div>
     <div class="write-main-box">
       <div class="write-category">
-        <span class="project-sub-text1" >수학과<button type="button" class="close">✖️</button></span>
-        <span class="project-sub-text1">간호조리사<button type="button" class="close">✖️</button></span>
-        <span class="project-sub-text1">요리사<button type="button" class="close">✖️</button></span>
+                <span class="project-sub-text1" th:text="${career.subName}"><button type="button"
+                                                                                    class="close">✖️</button></span>
       </div>
       <div class="write-title content-a">
-        <input type="text" placeholder="제목을 입력하세요" id="count_memo" minlength = "10" maxlength="100" style="font-family:NanumSquareLight;"/>
-        <div class="count"><span id="cnt">(0 / 25)</span></div>
+        <input type="text" placeholder="제목을 입력하세요" name="careerInfoTitle" id="count_memo" required maxlength="20" style="font-family:NanumSquareLight;"/>
+        <div class="count"><span id="cnt">(0 / 20)</span></div>
       </div>
       <div class="write-content content-a">
-        <!-- <textarea name="communityContent" id="communityContent" cols="30" rows="10" placeholder="카테고리를 선택하 고민을 작성해보세요"></textarea> -->
         <div style="width: 100%; margin: auto;">
-          <textarea id="summernote" name="content"></textarea>
+          <textarea id="summernote" name="careerInfoContent" required th:text="${career.careerInfoContent}"></textarea>
         </div>
-
-
-
+        <button type="submit" class="write-btn">작성하기</button>
       </div>
-
-      <div>
-      </div>
-      <div class="file-main-img">
-        <div class="file-img">
-          <!-- <label for="file" class="input-file-btn">
-            <img src="../img/camera.png">
-            이미지<br>
-            업로드<br>
-            (<span class="file-cnt">0</span>/4)
-          </label>
-          <input type="file" id="file" multiple /> -->
-        </div>
-        <!-- 파일 리스트 -->
-        <ul class="file-list">
-
-        </ul>
-        <!-- 파일 리스트 끝 -->
-      </div>
-
-
     </div>
-    <button type="button" class="write-btn">작성하기</button>
   </div>
 </form>
-
+<!-- 서머노트 -->
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
   $('#summernote').summernote({
-    height: 300,
-    width: 600,
+    height: 450,
     minHheight: 600,
     maxHeight: 600,
     disableResizeEditor: true,
@@ -125,10 +88,13 @@
     ]
   });
 </script>
-
+<!---->
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="../summernote/lang/summernote-ko-KR.js"></script>
+<script th:src="@{/js/fragment/header.js}"></script>
 <script type="module" th:src="@{/js/careerInfo/careerInfoWrite.js}"></script>
-<script th:src="@{/js/fragment/header.js}" ></script>
 </body>
 
 </html>
