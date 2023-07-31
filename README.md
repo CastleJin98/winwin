@@ -2,20 +2,20 @@
 
 
 ---
-## SpringBoot-Project
+# SpringBoot-Project
 - #### 스프링 부트 멘토멘티 사이트
 
 
 ---
-## 🖥️ 프로젝트 소개
+# 🖥️ 프로젝트 소개
 - 코멘토 + 커리어리를 참고하여 만든 멘토 멘티 사이트입니다.
 
 ---
-## 🕰️ 개발 기간
+# 🕰️ 개발 기간
 - 22.05.29일 - 22.07.24일
 
 ---
-## 🧑‍🤝‍🧑 맴버구성
+# 🧑‍🤝‍🧑 맴버구성
 - 팀장  : 정소이 - 로그인, 회원가입, ID찾기, PW찾기, PPT제작, 발표
 - 팀원1 : 최성진 - 모임 작성, 수정+삭제, 상세 목록, 발표용 더미데이터, DB설계 
 - 팀원2 : 김병구 - 나눔목록, 작성,수정, 진로정보
@@ -29,7 +29,7 @@
 
 
 ---
-## ⚙️ 개발 환경
+# ⚙️ 개발 환경
 - Back-End : `Java`
 - Front-End : `HTML`, `CSS`, `JavaScript`
 - `JDK 1.8.0`
@@ -57,15 +57,11 @@
 - 활용 포인트를 통한 회원간의 중고 거래
 - 게시글 좋아요/추천/조회수/신고 기능 구현
 - 이력서, 자소서 관리 및 다운로드 기능 구현
-  
-<details>
-<summary>맡은 프로젝트 코드</summary>
+
 
 <!-- summary 아래 한칸 공백 두어야함 -->
-<details>
-<summary> study.xml</summary>
 
- <mapper namespace="com.example.winwin.mapper.board.StudyMapper">
+<mapper namespace="com.example.winwin.mapper.board.StudyMapper">
 
     <!--프로젝트, 모임 게시물 작성-->
    <insert id="studyInsert">
@@ -260,13 +256,9 @@
         WHERE wu.USER_NUMBER = #{userNumber}
     </select> 
 </mapper> 
-</details>
 
 
-<details>
-<summary> StudyMapper.interface</summary>
-
-``` @Mapper
+ @Mapper
 public interface StudyMapper {
 
     //    추가
